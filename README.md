@@ -1,2 +1,3 @@
-# svitava
+# Svitava
+
 Concurrent fractal renderer written in the Go programming language
