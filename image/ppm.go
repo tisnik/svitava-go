@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func writePPMImage(width uint, height uint, image []byte) {
+func WritePPMImage(width uint, height uint, image []byte) {
 	w := bufio.NewWriter(os.Stdout)
 	defer w.Flush()
 
