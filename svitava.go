@@ -15,21 +15,28 @@ package main
 // import "svitava/renderer"
 import (
 	"flag"
+	"svitava/image"
+	"svitava/renderer"
+	"svitava/palettes"
 )
 
 func main() {
-	var width int
-	var height int
+	var width uint
+	var height uint
 	var aa bool
 
-	flag.IntVar(&width, "w", 0, "image width (shorthand)")
-	flag.IntVar(&width, "width", 0, "image width")
+	flag.UintVar(&width, "w", 0, "image width (shorthand)")
+	flag.UintVar(&width, "width", 0, "image width")
 
-	flag.IntVar(&height, "h", 0, "image height (shorthand)")
-	flag.IntVar(&height, "height", 0, "image height")
+	flag.UintVar(&height, "h", 0, "image height (shorthand)")
+	flag.UintVar(&height, "height", 0, "image height")
 
 	flag.BoolVar(&aa, "a", false, "enable antialiasing (shorthand)")
 	flag.BoolVar(&aa, "antialias", false, "enable antialiasing")
 
 	flag.Parse()
+
+	palette := palettes.Mandmap
+	img := renderer.RenderMandelbrotFractal(width, height, 255, palette[:])
+	image.WritePPMImage(width, height, img)
 }
