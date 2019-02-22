@@ -16,8 +16,8 @@ package main
 import (
 	"flag"
 	"svitava/image"
-	"svitava/renderer"
 	"svitava/palettes"
+	"svitava/renderer"
 )
 
 func main() {
@@ -36,7 +36,11 @@ func main() {
 
 	flag.Parse()
 
+	width = 256
+	height = 256
+
 	palette := palettes.Mandmap
 	img := renderer.RenderMandelbrotFractal(width, height, 255, palette[:])
-	image.WritePPMImage(width, height, img)
+	// image.WritePPMImage(width, height, img)
+	image.WritePNGImage("output.png", width, height, img)
 }
