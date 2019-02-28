@@ -1,4 +1,4 @@
-package renderer
+package cplx
 
 func calcMandelbrot(width uint, height uint, maxiter uint, palette [][3]byte, image []byte, cy float64, done chan bool) {
 	var cx float64 = -2.0
