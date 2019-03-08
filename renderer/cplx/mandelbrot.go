@@ -1,6 +1,6 @@
 package cplx
 
-func calcMandelbrot(width uint, height uint, maxiter uint, palette [][3]byte, image []byte, cy float64, done chan bool) {
+func CalcMandelbrot(width uint, height uint, maxiter uint, zimage_line[]ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
 		var zx float64 = 0.0
@@ -16,10 +16,7 @@ func calcMandelbrot(width uint, height uint, maxiter uint, palette [][3]byte, im
 			zx = zx2 - zy2 + cx
 			i++
 		}
-		color := palette[i]
-		image[3*x] = color[0]
-		image[3*x+1] = color[1]
-		image[3*x+2] = color[2]
+                zimage_line[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
 		cx += 3.0 / float64(width)
 	}
 	done <- true
@@ -47,24 +44,4 @@ func calcMandelbrotComplex(width uint, height uint, maxiter uint, palette [][3]b
 		c += dc
 	}
 	done <- true
-}
-
-func RenderMandelbrotFractal(width uint, height uint, maxiter uint, palette [][3]byte) []byte {
-	done := make(chan bool, height)
-
-	image := make([]byte, width*height*3)
-	offset := uint(0)
-	delta := width * 3
-
-	var cy float64 = -1.5
-	for y := uint(0); y < height; y++ {
-		go calcMandelbrot(width, height, maxiter, palette, image[offset:offset+delta], cy, done)
-		offset += delta
-		cy += 3.0 / float64(height)
-	}
-	for i := uint(0); i < height; i++ {
-		println(i)
-		<-done
-	}
-	return image
 }
