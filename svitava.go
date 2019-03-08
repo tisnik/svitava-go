@@ -16,8 +16,9 @@ package main
 import (
 	"flag"
 	"svitava/image"
-	"svitava/palettes"
-	"svitava/renderer/cplx"
+	//"svitava/palettes"
+	"svitava/renderer"
+	//"svitava/renderer/cplx"
 )
 
 func main() {
@@ -39,11 +40,18 @@ func main() {
 	width = 256
 	height = 256
 
-	palette := palettes.Mandmap
-	img := cplx.RenderMandelbrotFractal(width, height, 255, palette[:])
+	// palette := palettes.Mandmap
+	palette := [256][3]byte{}
+        for i := 0; i < 256; i++ {
+                index := byte(i)
+                palette[index][0] = index * 2
+                palette[index][1] = index * 3
+                palette[index][2] = index * 4
+        }
+	img := renderer.RenderMandelbrotFractal(width, height, 255, palette[:])
 	// image.WritePPMImage(width, height, img)
 	image.WritePNGImage("mandel.png", width, height, img)
 
-	img2 := cplx.RenderJuliaFractal(width, height, 255, palette[:])
-	image.WritePNGImage("julia.png", width, height, img2)
+	// img2 := cplx.RenderJuliaFractal(width, height, 255, palette[:])
+	// image.WritePNGImage("julia.png", width, height, img2)
 }
