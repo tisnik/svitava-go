@@ -1,18 +1,17 @@
 package renderer
 
-import "svitava/renderer/cplx"
+import (
+	"svitava/renderer/cplx"
+	"image")
 
 func init() {
 	println("Init")
 }
 
-func RenderMandelbrotFractal(width uint, height uint, maxiter uint, palette [][3]byte) []byte {
+func RenderMandelbrotFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
-        zimage := make([][]cplx.ZPixel, height)
-        for i := uint(0); i<height; i++ {
-                zimage[i] = make([]cplx.ZPixel, width)
-        }
+	zimage := cplx.NewZImage(width, height)
 
 	var cy float64 = -1.5
 	for y := uint(0); y < height; y++ {
@@ -24,19 +23,22 @@ func RenderMandelbrotFractal(width uint, height uint, maxiter uint, palette [][3
 		<-done
 	}
 
-	image := make([]byte, width*height*3)
-	offset := uint(0)
-	//delta := width * 3
-        for y := uint(0); y < height; y++ {
+	image := image.NewNRGBA(image.Rect(0, 0, int(width), int(height)))
+
+        for y := 0; y < int(height); y++ {
+		offset := image.PixOffset(0, y)
                 println(y)
                 for x := uint(0); x < width; x++ {
                         i := byte(zimage[y][x].Iter)
-                        image[offset] = palette[i][0]
-                        image[offset+1] = palette[i][1]
-                        image[offset+2] = palette[i][2]
-                        offset += 3
+                        image.Pix[offset] = palette[i][0]
+			offset++
+                        image.Pix[offset] = palette[i][1]
+			offset++
+                        image.Pix[offset] = palette[i][2]
+			offset++
+                        image.Pix[offset] = 0xff
+			offset++
                 }
-                //offset += delta
         }
 
 	return image
