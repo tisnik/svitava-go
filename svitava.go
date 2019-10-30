@@ -16,7 +16,7 @@ package main
 import (
 	"flag"
 	"log"
-	"svitava/server"
+	"svitava-go/server"
 	//"svitava/image"
 	//"svitava/palettes"
 	//"svitava/renderer"
