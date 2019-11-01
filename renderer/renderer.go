@@ -9,14 +9,14 @@ func init() {
 	println("Init")
 }
 
-func RenderMandelbrotFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
 	zimage := cplx.NewZImage(width, height)
 
 	var cy float64 = -1.5
 	for y := uint(0); y < height; y++ {
-		go cplx.CalcMandelbrot(width, height, maxiter, zimage[y], cy, done)
+		go cplx.CalcMandelbrot(width, height, pcx, pcy, maxiter, zimage[y], cy, done)
 		cy += 3.0 / float64(height)
 	}
 	for i := uint(0); i < height; i++ {
