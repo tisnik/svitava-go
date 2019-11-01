@@ -1,8 +1,9 @@
 package renderer
 
 import (
-	"svitava/renderer/cplx"
-	"image")
+	"image"
+	"svitava-go/renderer/cplx"
+)
 
 func init() {
 	println("Init")
@@ -25,21 +26,21 @@ func RenderMandelbrotFractal(width uint, height uint, maxiter uint, palette [][3
 
 	image := image.NewNRGBA(image.Rect(0, 0, int(width), int(height)))
 
-        for y := 0; y < int(height); y++ {
+	for y := 0; y < int(height); y++ {
 		offset := image.PixOffset(0, y)
-                println(y)
-                for x := uint(0); x < width; x++ {
-                        i := byte(zimage[y][x].Iter)
-                        image.Pix[offset] = palette[i][0]
+		println(y)
+		for x := uint(0); x < width; x++ {
+			i := byte(zimage[y][x].Iter)
+			image.Pix[offset] = palette[i][0]
 			offset++
-                        image.Pix[offset] = palette[i][1]
+			image.Pix[offset] = palette[i][1]
 			offset++
-                        image.Pix[offset] = palette[i][2]
+			image.Pix[offset] = palette[i][2]
 			offset++
-                        image.Pix[offset] = 0xff
+			image.Pix[offset] = 0xff
 			offset++
-                }
-        }
+		}
+	}
 
 	return image
 }
