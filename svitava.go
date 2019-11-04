@@ -16,11 +16,11 @@ package main
 import (
 	"flag"
 	"log"
-	"svitava-go/server"
-	//"svitava/image"
+	//"svitava-go/server"
+	"svitava-go/image"
 	//"svitava/palettes"
-	//"svitava/renderer"
-	//"svitava/renderer/cplx"
+	"svitava-go/renderer"
+	//"svitava-go/renderer/cplx"
 )
 
 func main() {
@@ -49,7 +49,7 @@ func main() {
 
 	if start_server {
 		log.Println("Starting server")
-		server.StartServer(port)
+		//server.StartServer(port)
 	} else {
 		log.Println("Starting renderer")
 		width = 256
@@ -59,13 +59,13 @@ func main() {
 		palette := [256][3]byte{}
 		for i := 0; i < 256; i++ {
 			index := byte(i)
-			palette[index][0] = index * 3
+			palette[index][0] = index * 2
 			palette[index][1] = index * 3
-			palette[index][2] = index * 3
+			palette[index][2] = index * 4
 		}
-		//img := renderer.RenderMandelbrotFractal(width, height, 255, palette[:])
+		img := renderer.RenderBarnsleyFractal(width, height, 255, palette[:])
 		// image.WritePPMImage(width, height, img)
-		//image.WritePNGImage("mandel.png", img)
+		image.WritePNGImage("barnsley.png", img)
 
 		// img2 := cplx.RenderJuliaFractal(width, height, 255, palette[:])
 		// image.WritePNGImage("julia.png", width, height, img2)
