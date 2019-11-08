@@ -64,8 +64,6 @@ func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette [][3
 	waitForWorkers(done, height)
 
 	return complexImageToImage(zimage, width, height, palette)
-	}
-
 }
 
 func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
@@ -83,3 +81,17 @@ func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette [][3
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+	done := make(chan bool, height)
+
+	zimage := cplx.NewZImage(width, height)
+
+	var cy float64 = -2.0
+	for y := uint(0); y < height; y++ {
+		go cplx.CalcBarnsleyM3(width, height, maxiter, zimage[y], cy, done)
+		cy += 4.0 / float64(height)
+	}
+	waitForWorkers(done, height)
+
+	return complexImageToImage(zimage, width, height, palette)
+}
