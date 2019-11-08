@@ -9,6 +9,13 @@ func init() {
 	println("Init")
 }
 
+func waitForWorkers(done chan bool, height uint) {
+	for i := uint(0); i < height; i++ {
+		println(i)
+		<-done
+	}
+}
+
 func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
@@ -19,16 +26,12 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 		go cplx.CalcMandelbrot(width, height, pcx, pcy, maxiter, zimage[y], cy, done)
 		cy += 3.0 / float64(height)
 	}
-	for i := uint(0); i < height; i++ {
-		println(i)
-		<-done
-	}
+	waitForWorkers(done, height)
 
 	image := image.NewNRGBA(image.Rect(0, 0, int(width), int(height)))
 
 	for y := 0; y < int(height); y++ {
 		offset := image.PixOffset(0, y)
-		println(y)
 		for x := uint(0); x < width; x++ {
 			i := byte(zimage[y][x].Iter)
 			image.Pix[offset] = palette[i][0]
@@ -55,9 +58,7 @@ func RenderBarnsleyFractal(width uint, height uint, maxiter uint, palette [][3]b
 		go cplx.CalcBarnsley(width, height, maxiter, zimage[y], cy, done)
 		cy += 4.0 / float64(height)
 	}
-	for i := uint(0); i < height; i++ {
-		println(i)
-		<-done
+	waitForWorkers(done, height)
 	}
 
 	image := image.NewNRGBA(image.Rect(0, 0, int(width), int(height)))
