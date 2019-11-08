@@ -1,6 +1,6 @@
 package cplx
 
-func CalcBarnsley(width uint, height uint, maxiter uint, zimage_line []ZPixel, cy float64, done chan bool) {
+func CalcBarnsleyM1(width uint, height uint, maxiter uint, zimage_line []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
 		var zx float64 = 0.0

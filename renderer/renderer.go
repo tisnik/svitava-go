@@ -51,14 +51,14 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 	return complexImageToImage(zimage, width, height, palette)
 }
 
-func RenderBarnsleyFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
 	zimage := cplx.NewZImage(width, height)
 
 	var cy float64 = -2.0
 	for y := uint(0); y < height; y++ {
-		go cplx.CalcBarnsley(width, height, maxiter, zimage[y], cy, done)
+		go cplx.CalcBarnsleyM1(width, height, maxiter, zimage[y], cy, done)
 		cy += 4.0 / float64(height)
 	}
 	waitForWorkers(done, height)
