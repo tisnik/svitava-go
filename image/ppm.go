@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// Write an image represented by byte slice into file with PPM format.
 func WritePPMImage(width uint, height uint, image []byte) {
 	w := bufio.NewWriter(os.Stdout)
 	defer w.Flush()
