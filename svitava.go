@@ -27,7 +27,7 @@ func main() {
 	var width uint
 	var height uint
 	var aa bool
-	var start_server bool
+	var startServer bool
 	var port uint
 
 	flag.UintVar(&width, "w", 0, "image width (shorthand)")
@@ -39,15 +39,15 @@ func main() {
 	flag.BoolVar(&aa, "a", false, "enable antialiasing (shorthand)")
 	flag.BoolVar(&aa, "antialias", false, "enable antialiasing")
 
-	flag.BoolVar(&start_server, "s", false, "start in server mode (shorthand)")
-	flag.BoolVar(&start_server, "server", false, "start in server mode")
+	flag.BoolVar(&startServer, "s", false, "start in server mode (shorthand)")
+	flag.BoolVar(&startServer, "server", false, "start in server mode")
 
 	flag.UintVar(&port, "p", 8080, "port for the server (shorthand)")
 	flag.UintVar(&port, "port", 8080, "port for the server")
 
 	flag.Parse()
 
-	if start_server {
+	if startServer {
 		log.Println("Starting server")
 		//server.StartServer(port)
 	} else {
