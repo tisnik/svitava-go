@@ -36,6 +36,7 @@ func complexImageToImage(zimage cplx.ZImage, width uint, height uint, palette []
 	return image
 }
 
+// RenderMandelbrotFractal renders a classic Mandelbrot fractal into provided Image.
 func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
@@ -51,6 +52,7 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+// RenderBarnsleyFractalM1 renders a classic Barnsley fractal M1 into provided Image.
 func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
@@ -66,6 +68,7 @@ func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette [][3
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+// RenderBarnsleyFractalM2 renders a classic Barnsley fractal M2 into provided Image.
 func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
@@ -81,6 +84,7 @@ func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette [][3
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+// RenderBarnsleyFractalM3 renders a classic Barnsley fractal M3 into provided Image.
 func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
