@@ -1,6 +1,6 @@
 package cplx
 
 type ZPixel struct {
-        Iter    uint
-        Z       complex128
+	Iter uint
+	Z    complex128
 }
