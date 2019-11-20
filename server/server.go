@@ -11,4 +11,3 @@ func StartServer(port uint) {
 	/* http.HandleFunc("/", someHandler) */
 	http.ListenAndServe(":8080", nil)
 }
-
