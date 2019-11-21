@@ -60,14 +60,25 @@ func main() {
 		for i := 0; i < 256; i++ {
 			index := byte(i)
 			palette[index][0] = index * 2
-			palette[index][1] = index * 3
-			palette[index][2] = index * 4
+			palette[index][1] = index * 5
+			palette[index][2] = index * 7
 		}
-		img := renderer.RenderBarnsleyFractal(width, height, 255, palette[:])
-		// image.WritePPMImage(width, height, img)
-		image.WritePNGImage("barnsley.png", img)
+		img := renderer.RenderMandelbrotFractal(width, height, 0.0, 0.0, 255, palette[:])
+		image.WritePNGImage("mandelbror.png", img)
 
-		// img2 := cplx.RenderJuliaFractal(width, height, 255, palette[:])
-		// image.WritePNGImage("julia.png", width, height, img2)
+		// img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette[:])
+		// image.WritePNGImage("barnsley_m1.png", img)
+
+		// img = renderer.RenderBarnsleyFractalM2(width, height, 255, palette[:])
+		// image.WritePNGImage("barnsley_m2.png", img)
+
+		// img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette[:])
+		// image.WritePNGImage("barnsley_m3.png", img)
+
+		img2 := renderer.RenderJuliaFractal(width, height, 255, palette[:])
+		image.WritePNGImage("julia.png", img2)
+
+		// img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette[:])
+		// image.WritePNGImage("barnsley_j1.png", img)
 	}
 }
