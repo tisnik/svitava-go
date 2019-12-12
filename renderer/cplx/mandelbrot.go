@@ -1,11 +1,12 @@
 package cplx
 
-func CalcMandelbrot(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimage_line []ZPixel, cy float64, done chan bool) {
+// CalcMandelbrot calculate one line of Mandelbrot set into the provided scanline of ZPixels
+func CalcMandelbrot(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
 		var zx float64 = pcx
 		var zy float64 = pcy
-		var i uint = 0
+		var i uint
 		for i < maxiter {
 			zx2 := zx * zx
 			zy2 := zy * zy
@@ -16,7 +17,7 @@ func CalcMandelbrot(width uint, height uint, pcx float64, pcy float64, maxiter u
 			zx = zx2 - zy2 + cx
 			i++
 		}
-		zimage_line[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
+		zimageLine[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
 		cx += 3.0 / float64(width)
 	}
 	done <- true
@@ -27,7 +28,7 @@ func calcMandelbrotComplex(width uint, height uint, maxiter uint, palette [][3]b
 	var dc complex128 = complex(3.0/float64(width), 0.0)
 	for x := uint(0); x < width; x++ {
 		var z complex128 = 0.0 + 0.0i
-		var i uint = 0
+		var i uint
 		for i < maxiter {
 			zx := real(z)
 			zy := imag(z)
