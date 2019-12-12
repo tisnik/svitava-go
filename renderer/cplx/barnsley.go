@@ -1,5 +1,6 @@
 package cplx
 
+// CalcBarnsleyM1 calculates one line of Barnsley M1 Mandelbrot-like set
 func CalcBarnsleyM1(width uint, height uint, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
@@ -31,6 +32,7 @@ func CalcBarnsleyM1(width uint, height uint, maxiter uint, zimageLine []ZPixel, 
 	done <- true
 }
 
+// CalcBarnsleyM2 calculates one line of Barnsley M2 Mandelbrot-like set
 func CalcBarnsleyM2(width uint, height uint, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
@@ -62,6 +64,7 @@ func CalcBarnsleyM2(width uint, height uint, maxiter uint, zimageLine []ZPixel, 
 	done <- true
 }
 
+// CalcBarnsleyM3 calculates one line of Barnsley M3 Mandelbrot-like set
 func CalcBarnsleyM3(width uint, height uint, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
