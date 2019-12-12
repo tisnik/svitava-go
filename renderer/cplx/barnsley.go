@@ -1,11 +1,11 @@
 package cplx
 
-func CalcBarnsleyM1(width uint, height uint, maxiter uint, zimage_line []ZPixel, cy float64, done chan bool) {
+func CalcBarnsleyM1(width uint, height uint, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
 		var zx float64 = cx
 		var zy float64 = cy
-		var i uint = 0
+		var i uint
 		for i < maxiter {
 			var zxn float64
 			var zyn float64
@@ -25,18 +25,18 @@ func CalcBarnsleyM1(width uint, height uint, maxiter uint, zimage_line []ZPixel,
 			zy = zyn
 			i++
 		}
-		zimage_line[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
+		zimageLine[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
 		cx += 4.0 / float64(width)
 	}
 	done <- true
 }
 
-func CalcBarnsleyM2(width uint, height uint, maxiter uint, zimage_line []ZPixel, cy float64, done chan bool) {
+func CalcBarnsleyM2(width uint, height uint, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
 		var zx float64 = cx
 		var zy float64 = cy
-		var i uint = 0
+		var i uint
 		for i < maxiter {
 			var zxn float64
 			var zyn float64
@@ -56,18 +56,18 @@ func CalcBarnsleyM2(width uint, height uint, maxiter uint, zimage_line []ZPixel,
 			zy = zyn
 			i++
 		}
-		zimage_line[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
+		zimageLine[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
 		cx += 4.0 / float64(width)
 	}
 	done <- true
 }
 
-func CalcBarnsleyM3(width uint, height uint, maxiter uint, zimage_line []ZPixel, cy float64, done chan bool) {
+func CalcBarnsleyM3(width uint, height uint, maxiter uint, zimageLine []ZPixel, cy float64, done chan bool) {
 	var cx float64 = -2.0
 	for x := uint(0); x < width; x++ {
 		var zx float64 = cx
 		var zy float64 = cy
-		var i uint = 0
+		var i uint
 		for i < maxiter {
 			var zxn float64
 			var zyn float64
@@ -87,7 +87,7 @@ func CalcBarnsleyM3(width uint, height uint, maxiter uint, zimage_line []ZPixel,
 			zy = zyn
 			i++
 		}
-		zimage_line[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
+		zimageLine[x] = ZPixel{Iter: i, Z: complex(zx, zy)}
 		cx += 4.0 / float64(width)
 	}
 	done <- true
