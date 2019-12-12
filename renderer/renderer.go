@@ -52,6 +52,7 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+// RenderJuliaFractal renders a classic Julia fractal into provided Image.
 func RenderJuliaFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	done := make(chan bool, height)
 
