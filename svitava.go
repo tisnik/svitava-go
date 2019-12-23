@@ -16,8 +16,8 @@ package main
 import (
 	"flag"
 	"log"
-	//"svitava-go/server"
 	"svitava-go/image"
+	//"svitava-go/server"
 	//"svitava/palettes"
 	"svitava-go/renderer"
 	//"svitava-go/renderer/cplx"
@@ -28,6 +28,8 @@ func main() {
 	var height uint
 	var aa bool
 	var startServer bool
+	var startTUI bool
+	var execute string
 	var port uint
 
 	flag.UintVar(&width, "w", 0, "image width (shorthand)")
@@ -39,6 +41,13 @@ func main() {
 	flag.BoolVar(&aa, "a", false, "enable antialiasing (shorthand)")
 	flag.BoolVar(&aa, "antialias", false, "enable antialiasing")
 
+	flag.BoolVar(&startTUI, "t", false, "start with text user interface (shorthand)")
+	flag.BoolVar(&startTUI, "tui", false, "start in server mode")
+
+	flag.StringVar(&execute, "e", "", "execute given script with rendering commands (shorthand)")
+	flag.StringVar(&execute, "exec", "", "execute given script with rendering commands")
+	flag.StringVar(&execute, "execute", "", "execute given script with rendering commands")
+
 	flag.BoolVar(&startServer, "s", false, "start in server mode (shorthand)")
 	flag.BoolVar(&startServer, "server", false, "start in server mode")
 
@@ -49,7 +58,7 @@ func main() {
 
 	if startServer {
 		log.Println("Starting server")
-		//server.StartServer(port)
+		// server.StartServer(port)
 	} else {
 		log.Println("Starting renderer")
 		width = 256
