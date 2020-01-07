@@ -11,3 +11,19 @@
 //
 
 package palettes
+
+func LoadBinaryRGBPalette(filename string) (Palette, error) {
+	return nil
+}
+
+func LoadBinaryRGBAPalette(filename string) (Palette, error) {
+	return nil
+}
+
+func LoadTextRGBPalette(filename string) (Palette, error) {
+	return nil
+}
+
+func LoadTextRGBAPalette(filename string) (Palette, error) {
+	return nil
+}
