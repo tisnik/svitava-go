@@ -73,21 +73,21 @@ func main() {
 			palette[index][2] = index * 7
 		}
 		img := renderer.RenderMandelbrotFractal(width, height, 0.0, 0.0, 255, palette[:])
-		image.WritePNGImage("mandelbror.png", img)
+		image.WritePNGImage("mandelbrot.png", img)
 
-		// img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette[:])
-		// image.WritePNGImage("barnsley_m1.png", img)
+		img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette[:])
+		image.WritePNGImage("barnsley_m1.png", img)
 
-		// img = renderer.RenderBarnsleyFractalM2(width, height, 255, palette[:])
-		// image.WritePNGImage("barnsley_m2.png", img)
+		img = renderer.RenderBarnsleyFractalM2(width, height, 255, palette[:])
+		image.WritePNGImage("barnsley_m2.png", img)
 
-		// img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette[:])
-		// image.WritePNGImage("barnsley_m3.png", img)
+		img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette[:])
+		image.WritePNGImage("barnsley_m3.png", img)
 
 		img2 := renderer.RenderJuliaFractal(width, height, 255, palette[:])
 		image.WritePNGImage("julia.png", img2)
 
-		// img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette[:])
-		// image.WritePNGImage("barnsley_j1.png", img)
+		//img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette[:])
+		//image.WritePNGImage("barnsley_j1.png", img)
 	}
 }
