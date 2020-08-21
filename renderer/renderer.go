@@ -13,8 +13,8 @@
 package renderer
 
 import (
+	"github.com/tisnik/svitava-go/renderer/cplx"
 	"image"
-	"svitava-go/renderer/cplx"
 )
 
 func init() {

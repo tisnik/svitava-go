@@ -12,15 +12,14 @@
 
 package main
 
-// import "svitava/renderer"
 import (
 	"flag"
 	"log"
-	"svitava-go/image"
-	//"svitava-go/server"
-	//"svitava/palettes"
-	"svitava-go/renderer"
-	//"svitava-go/renderer/cplx"
+	//"github.com/tisnik/svitava-go/server"
+	"github.com/tisnik/svitava-go/image"
+	//"github.com/tisnik/svitava/palettes"
+	"github.com/tisnik/svitava-go/renderer"
+	//"github.com/tisnik/svitava-go/cplx"
 )
 
 func main() {
