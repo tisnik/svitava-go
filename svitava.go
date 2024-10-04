@@ -1,5 +1,5 @@
 //
-//  (C) Copyright 2019  Pavel Tisnovsky
+//  (C) Copyright 2019, 2020, 2021, 2022, 2023, 2024  Pavel Tisnovsky
 //
 //  All rights reserved. This program and the accompanying materials
 //  are made available under the terms of the Eclipse Public License v1.0
@@ -15,7 +15,7 @@ package main
 import (
 	"flag"
 	"log"
-	//"github.com/tisnik/svitava-go/server"
+	"github.com/tisnik/svitava-go/server"
 	"github.com/tisnik/svitava-go/image"
 	//"github.com/tisnik/svitava/palettes"
 	"github.com/tisnik/svitava-go/renderer"
@@ -57,7 +57,7 @@ func main() {
 
 	if startServer {
 		log.Println("Starting server")
-		// server.StartServer(port)
+		server.StartServer(port)
 	} else {
 		log.Println("Starting renderer")
 		width = 256
