@@ -4,13 +4,20 @@ SHELL := /bin/bash
 
 SOURCES:=$(shell find . -name '*.go')
 BINARY:=svitava-go
+OUTDIR:=
 
 default: build
 
 clean: ## Run go clean
 	@go clean
 
-build: ${BINARY} ## Build binary containing service executable
+build:	${OUTDIR}/${BINARY} ## Build binary containing service executable
 
-${BINARY}:
-	@go build
+run:	${OUTDIR}/${BINARY}
+	${OUTDIR}/${BINARY} -s
+
+${OUTDIR}/${BINARY}:	svitava.go
+	@go build -o ${OUTDIR}
+
+benchmark:
+	@go test -bench . ./...
