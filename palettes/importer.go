@@ -13,17 +13,21 @@
 package palettes
 
 func LoadBinaryRGBPalette(filename string) (Palette, error) {
-	return nil
+	p := Palette{}
+	return p, nil
 }
 
 func LoadBinaryRGBAPalette(filename string) (Palette, error) {
-	return nil
+	p := Palette{}
+	return p, nil
 }
 
 func LoadTextRGBPalette(filename string) (Palette, error) {
-	return nil
+	p := Palette{}
+	return p, nil
 }
 
 func LoadTextRGBAPalette(filename string) (Palette, error) {
-	return nil
+	p := Palette{}
+	return p, nil
 }
