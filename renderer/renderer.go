@@ -13,8 +13,9 @@
 package renderer
 
 import (
-	"github.com/tisnik/svitava-go/renderer/cplx"
 	"image"
+
+	"github.com/tisnik/svitava-go/renderer/cplx"
 )
 
 func init() {
@@ -48,26 +49,17 @@ func complexImageToImage(zimage cplx.ZImage, width uint, height uint, palette []
 	return image
 }
 
-type fractalFunction = func(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimageLine []cplx.ZPixel, cx float64, done chan bool)
+type fractalFunction = func(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimage cplx.ZImage)
 
 func render(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte, function fractalFunction) image.Image {
-	done := make(chan bool, height)
-
 	zimage := cplx.NewZImage(width, height)
-
-	var cy float64 = -1.5
-	for y := uint(0); y < height; y++ {
-		go function(width, height, pcx, pcy, maxiter, zimage[y], cy, done)
-		cy += 3.0 / float64(height)
-	}
-	waitForWorkers(done, height)
-
+	function(width, height, pcx, pcy, maxiter, zimage)
 	return complexImageToImage(zimage, width, height, palette)
 }
 
 // RenderMandelbrotFractal renders a classic Mandelbrot fractal into provided Image.
 func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, pcx, pcy, maxiter, palette, cplx.CalcMandelbrot)
+	return render(width, height, pcx, pcy, maxiter, palette, cplx.CalcMandelbrotComplex)
 }
 
 // RenderJuliaFractal renders a classic Julia fractal into provided Image.
@@ -91,48 +83,20 @@ func RenderJuliaFractal(width uint, height uint, maxiter uint, palette [][3]byte
 
 // RenderBarnsleyFractalM1 renders a classic Barnsley fractal M1 into provided Image.
 func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	done := make(chan bool, height)
-
-	zimage := cplx.NewZImage(width, height)
-
-	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
-		go cplx.CalcBarnsleyM1(width, height, maxiter, zimage[y], cy, done)
-		cy += 4.0 / float64(height)
-	}
-	waitForWorkers(done, height)
-
-	return complexImageToImage(zimage, width, height, palette)
+	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyM1)
 }
 
 // RenderBarnsleyFractalM2 renders a classic Barnsley fractal M2 into provided Image.
 func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	done := make(chan bool, height)
-
-	zimage := cplx.NewZImage(width, height)
-
-	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
-		go cplx.CalcBarnsleyM2(width, height, maxiter, zimage[y], cy, done)
-		cy += 4.0 / float64(height)
-	}
-	waitForWorkers(done, height)
-
-	return complexImageToImage(zimage, width, height, palette)
+	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyM2)
 }
 
 // RenderBarnsleyFractalM3 renders a classic Barnsley fractal M3 into provided Image.
 func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	done := make(chan bool, height)
+	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyM3)
+}
 
-	zimage := cplx.NewZImage(width, height)
-
-	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
-		go cplx.CalcBarnsleyM3(width, height, maxiter, zimage[y], cy, done)
-		cy += 4.0 / float64(height)
-	}
-	waitForWorkers(done, height)
-
-	return complexImageToImage(zimage, width, height, palette)
+// RenderBarnsleyFractalJ1 renders a classic Barnsley fractal J1 into provided Image.
+func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+	return render(width, height, 1.0, 1.1, maxiter, palette, cplx.CalcBarnsleyJ1)
 }
