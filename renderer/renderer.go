@@ -100,3 +100,18 @@ func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette [][3
 func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
 	return render(width, height, 1.0, 1.1, maxiter, palette, cplx.CalcBarnsleyJ1)
 }
+
+// RenderBarnsleyFractalJ2 renders a classic Barnsley fractal J2 into provided Image.
+func RenderBarnsleyFractalJ2(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+	return render(width, height, 1.1, 1.1, maxiter, palette, cplx.CalcBarnsleyJ2)
+}
+
+// RenderBarnsleyFractalJ3 renders a classic Barnsley fractal J3 into provided Image.
+func RenderBarnsleyFractalJ3(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyJ3)
+}
+
+// RenderMagnet renders a classic Magnet fractal into provided Image.
+func RenderMagnetFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+	return render(width, height, 1.1, 1.1, maxiter, palette, cplx.CalcMagnet)
+}
