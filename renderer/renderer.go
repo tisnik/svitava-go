@@ -15,6 +15,7 @@ package renderer
 import (
 	"image"
 
+	"github.com/tisnik/svitava-go/params"
 	"github.com/tisnik/svitava-go/renderer/cplx"
 )
 
@@ -50,6 +51,7 @@ func complexImageToImage(zimage cplx.ZImage, width uint, height uint, palette []
 }
 
 type fractalFunction = func(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimage cplx.ZImage)
+type fractalFunction2 = func(width uint, height uint, params params.Cplx, zimage cplx.ZImage)
 
 func render(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte, function fractalFunction) image.Image {
 	zimage := cplx.NewZImage(width, height)
@@ -57,9 +59,20 @@ func render(width uint, height uint, pcx float64, pcy float64, maxiter uint, pal
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+func render2(width uint, height uint, params params.Cplx, palette [][3]byte, function fractalFunction2) image.Image {
+	zimage := cplx.NewZImage(width, height)
+	function(width, height, params, zimage)
+	return complexImageToImage(zimage, width, height, palette)
+}
+
 // RenderMandelbrotFractal renders a classic Mandelbrot fractal into provided Image.
 func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, pcx, pcy, maxiter, palette, cplx.CalcMandelbrotComplex)
+	params := params.Cplx{
+		Cx0:     0,
+		Cy0:     0,
+		Maxiter: 1000,
+	}
+	return render2(width, height, params, palette, cplx.CalcMandelbrotComplex)
 }
 
 // RenderJuliaFractal renders a classic Julia fractal into provided Image.
