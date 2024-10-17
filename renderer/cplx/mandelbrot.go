@@ -1,18 +1,18 @@
 package cplx
 
+import "github.com/tisnik/svitava-go/params"
+
 // CalcMandelbrot calculates Mandelbrot set into the provided ZPixels
-func CalcMandelbrot(
-	width uint, height uint, pcx float64, pcy float64,
-	maxiter uint, zimage ZImage) {
+func CalcMandelbrot(width uint, height uint, params params.Cplx, zimage ZImage) {
 
 	var cy float64 = -1.5
 	for y := uint(0); y < height; y++ {
 		var cx float64 = -2.0
 		for x := uint(0); x < width; x++ {
-			var zx float64 = pcx
-			var zy float64 = pcy
+			var zx float64 = params.Cx0
+			var zy float64 = params.Cy0
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				zx2 := zx * zx
 				zy2 := zy * zy
 				if zx2+zy2 > 4.0 {
@@ -31,18 +31,16 @@ func CalcMandelbrot(
 
 // CalcMandelbrotComplex calculates Mandelbrot set into the provided ZPixels
 // Calculations use complex numbers
-func CalcMandelbrotComplex(
-	width uint, height uint, pcx float64, pcy float64,
-	maxiter uint, zimage ZImage) {
+func CalcMandelbrotComplex(width uint, height uint, params params.Cplx, zimage ZImage) {
 
 	var cy float64 = -1.5
 	for y := uint(0); y < height; y++ {
 		var cx float64 = -2.0
 		for x := uint(0); x < width; x++ {
 			var c complex128 = complex(cx, cy)
-			var z complex128 = complex(pcx, pcy)
+			var z complex128 = complex(params.Cx0, params.Cy0)
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				zx := real(z)
 				zy := imag(z)
 				if zx*zx+zy*zy > 4.0 {
