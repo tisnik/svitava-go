@@ -1,11 +1,11 @@
 package params
 
-type CplxParams struct {
-	cx0     float64
-	cy0     float64
-	maxiter int
-	xmin    float64
-	ymin    float64
-	xmax    float64
-	ymax    float64
+type Cplx struct {
+	Cx0     float64
+	Cy0     float64
+	Maxiter uint
+	Xmin    float64
+	Ymin    float64
+	Xmax    float64
+	Ymax    float64
 }
