@@ -12,6 +12,20 @@
 
 package configuration
 
+import (
+	"log"
+
+	"github.com/BurntSushi/toml"
+)
+
+type Configuration struct{}
+
 func LoadConfiguration(configFileName string) error {
+	var configuration Configuration
+	blob := ``
+	_, err := toml.Decode(blob, &configuration)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return nil
 }
