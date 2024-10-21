@@ -1,0 +1,6 @@
+[[complex_fractal]]
+name = "foo"
+cx0 = 1
+
+[[complex_fractal]]
+name = "bar"
