@@ -13,19 +13,47 @@
 package configuration
 
 import (
+	"errors"
 	"log"
+	"os"
 
 	"github.com/BurntSushi/toml"
 )
 
-type Configuration struct{}
+type Configuration struct {
+	ServerConfiguration    ServerConfiguration    `toml:"server"`
+	LoggingConfiguration   LoggingConfiguration   `toml:"logging"`
+	RenderingConfiguration RenderingConfiguration `toml:"rendering"`
+}
 
-func LoadConfiguration(configFileName string) error {
+type ServerConfiguration struct {
+	Address string `toml:"address"`
+}
+
+type LoggingConfiguration struct {
+	Debug bool `toml:"debug"`
+}
+
+type RenderingConfiguration struct {
+	ImageFormat string `toml:"image_format"`
+}
+
+func LoadConfiguration(configFileName string) (Configuration, error) {
 	var configuration Configuration
-	blob := ``
-	_, err := toml.Decode(blob, &configuration)
+
+	_, err := os.Stat(configFileName)
+
+	if os.IsNotExist(err) {
+		return configuration, errors.New("Config file does not exist.")
+	}
+	if err != nil {
+		return configuration, err
+	}
+
+	_, err = toml.DecodeFile(configFileName, &configuration)
 	if err != nil {
 		log.Fatal(err)
+		return configuration, err
 	}
-	return nil
+	return configuration, nil
 }
