@@ -4,7 +4,8 @@ SHELL := /bin/bash
 
 SOURCES:=$(shell find . -name '*.go')
 BINARY:=svitava-go
-OUTDIR:=
+OUTDIR:=.
+#OUTDIR:=/tmp/ramdisk
 
 default: build
 
@@ -16,7 +17,7 @@ build:	${OUTDIR}/${BINARY} ## Build binary containing service executable
 run:	${OUTDIR}/${BINARY}
 	${OUTDIR}/${BINARY} -s
 
-${OUTDIR}/${BINARY}:	svitava.go
+${OUTDIR}/${BINARY}:	${SOURCES}
 	@go build -o ${OUTDIR}
 
 benchmark:
