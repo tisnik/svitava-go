@@ -14,6 +14,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -22,8 +23,8 @@ import (
 	"github.com/tisnik/svitava-go/server"
 
 	//"github.com/tisnik/svitava/palettes"
+	"github.com/tisnik/svitava-go/params"
 	"github.com/tisnik/svitava-go/renderer"
-	//"github.com/tisnik/svitava-go/cplx"
 )
 
 const (
@@ -39,11 +40,12 @@ func main() {
 	var execute string
 	var port uint
 
-	err := configuration.LoadConfiguration(CONFIG_FILE_NAME)
+	configuration, err := configuration.LoadConfiguration(CONFIG_FILE_NAME)
 	if err != nil {
 		println("Unable to load configuration")
 		os.Exit(1)
 	}
+	fmt.Println(configuration)
 
 	flag.UintVar(&width, "w", 0, "image width (shorthand)")
 	flag.UintVar(&width, "width", 0, "image width")
@@ -103,6 +105,9 @@ func main() {
 		img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette[:])
 		image.WritePNGImage("barnsley_m3.png", img)
 
+		img = renderer.RenderBarnsleyFractalJ3(width, height, 255, palette[:])
+		image.WritePNGImage("barnsley_j3.png", img)
+
 		img2 := renderer.RenderJuliaFractal(width, height, 255, palette[:])
 		image.WritePNGImage("julia.png", img2)
 
@@ -112,4 +117,7 @@ func main() {
 		//img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette[:])
 		//image.WritePNGImage("barnsley_j1.png", img)
 	}
+
+	parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
+	fmt.Printf("%v\n%v\n", parameters, err)
 }
