@@ -77,21 +77,7 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 
 // RenderJuliaFractal renders a classic Julia fractal into provided Image.
 func RenderJuliaFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	done := make(chan bool, height)
-
-	zimage := cplx.NewZImage(width, height)
-
-	var zy0 float64 = -2.0
-	for y := uint(0); y < height; y++ {
-		go cplx.CalcJulia(width, height, maxiter, zimage[y], zy0, 0.0, 1.0, done)
-		zy0 += 4.0 / float64(height)
-	}
-	for i := uint(0); i < height; i++ {
-		println(i)
-		<-done
-	}
-
-	return complexImageToImage(zimage, width, height, palette)
+	return render(width, height, 0.0, 1.0, maxiter, palette, cplx.CalcJulia)
 }
 
 // RenderBarnsleyFractalM1 renders a classic Barnsley fractal M1 into provided Image.
