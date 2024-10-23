@@ -1,6 +1,13 @@
 [[complex_fractal]]
-name = "foo"
-cx0 = 1
+name = "Classic Mandelbrot set"
+type = "mandelbrot"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
 
 [[complex_fractal]]
-name = "bar"
+name = "Classic Julia set"
+type = "julia"
+cx0 = 0.0
+cy0 = 1.0
+maxiter = 1000
