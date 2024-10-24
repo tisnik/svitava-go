@@ -1,10 +1,12 @@
 package cplx
 
+import "github.com/tisnik/svitava-go/params"
+
 // CalcBarnsleyM1 calculates Barnsley M1 Mandelbrot-like set
 func CalcBarnsleyM1(
 	width uint, height uint,
-	pcx float64, pcy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
 	var cy float64 = -2.0
 	for y := uint(0); y < height; y++ {
@@ -13,7 +15,7 @@ func CalcBarnsleyM1(
 			var zx float64 = cx
 			var zy float64 = cy
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
@@ -42,8 +44,8 @@ func CalcBarnsleyM1(
 // CalcBarnsleyM2 calculates Barnsley M2 Mandelbrot-like set
 func CalcBarnsleyM2(
 	width uint, height uint,
-	pcx float64, pcy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
 	var cy float64 = -2.0
 	for y := uint(0); y < height; y++ {
@@ -52,7 +54,7 @@ func CalcBarnsleyM2(
 			var zx float64 = cx
 			var zy float64 = cy
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
@@ -81,8 +83,8 @@ func CalcBarnsleyM2(
 // CalcBarnsleyM3 calculates Barnsley M3 Mandelbrot-like set
 func CalcBarnsleyM3(
 	width uint, height uint,
-	pcx float64, pcy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
 	var cy float64 = -2.0
 	for y := uint(0); y < height; y++ {
@@ -91,7 +93,7 @@ func CalcBarnsleyM3(
 			var zx float64 = cx
 			var zy float64 = cy
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
