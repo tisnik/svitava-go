@@ -17,7 +17,7 @@ func BenchmarkCalcMandelbrot(b *testing.B) {
 	params := params.Cplx{
 		Cx0:     0,
 		Cy0:     0,
-		Maxiter: 1000,
+		Maxiter: MAXITER,
 	}
 	zimage := cplx.NewZImage(WIDTH, HEIGHT)
 	for i := 0; i < b.N; i++ {
@@ -29,7 +29,7 @@ func BenchmarkCalcMandelbrotComplex(b *testing.B) {
 	params := params.Cplx{
 		Cx0:     0,
 		Cy0:     0,
-		Maxiter: 1000,
+		Maxiter: MAXITER,
 	}
 	zimage := cplx.NewZImage(WIDTH, HEIGHT)
 	for i := 0; i < b.N; i++ {
@@ -38,8 +38,13 @@ func BenchmarkCalcMandelbrotComplex(b *testing.B) {
 }
 
 func BenchmarkCalcJulia(b *testing.B) {
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     1.0,
+		Maxiter: MAXITER,
+	}
 	zimage := cplx.NewZImage(WIDTH, HEIGHT)
 	for i := 0; i < b.N; i++ {
-		cplx.CalcJulia(WIDTH, HEIGHT, 0.0, 1.0, MAXITER, zimage)
+		cplx.CalcJulia(WIDTH, HEIGHT, params, zimage)
 	}
 }
