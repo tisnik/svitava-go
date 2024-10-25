@@ -1,11 +1,15 @@
 package cplx
 
+import "github.com/tisnik/svitava-go/params"
+
 // CalcBarnsleyJ1 calculates Barnsley J1 Mandelbrot-like set
 func CalcBarnsleyJ1(
 	width uint, height uint,
-	cx float64, cy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
+	cx := params.Cx0
+	cy := params.Cy0
 	var zy0 float64 = -2.0
 	for y := uint(0); y < height; y++ {
 		var zx0 float64 = -2.0
@@ -13,7 +17,7 @@ func CalcBarnsleyJ1(
 			var zx float64 = zx0
 			var zy float64 = zy0
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
@@ -42,9 +46,11 @@ func CalcBarnsleyJ1(
 // CalcBarnsleyJ2 calculates Barnsley J2 Mandelbrot-like set
 func CalcBarnsleyJ2(
 	width uint, height uint,
-	cx float64, cy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
+	cx := params.Cx0
+	cy := params.Cy0
 	var zy0 float64 = -2.0
 	for y := uint(0); y < height; y++ {
 		var zx0 float64 = -2.0
@@ -52,7 +58,7 @@ func CalcBarnsleyJ2(
 			var zx float64 = zx0
 			var zy float64 = zy0
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
@@ -81,9 +87,11 @@ func CalcBarnsleyJ2(
 // CalcBarnsleyJ3 calculates Barnsley J3 Mandelbrot-like set
 func CalcBarnsleyJ3(
 	width uint, height uint,
-	cx float64, cy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
+	cx := params.Cx0
+	cy := params.Cy0
 	var zy0 float64 = -2.0
 	for y := uint(0); y < height; y++ {
 		var zx0 float64 = -2.0
@@ -91,7 +99,7 @@ func CalcBarnsleyJ3(
 			var zx float64 = zx0
 			var zy float64 = zy0
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
