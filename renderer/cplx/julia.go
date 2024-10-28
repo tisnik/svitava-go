@@ -1,10 +1,12 @@
 package cplx
 
+import "github.com/tisnik/svitava-go/params"
+
 // CalcJulia calculates classic Julia fractal
 func CalcJulia(
 	width uint, height uint,
-	cx float64, cy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
 	var zy0 float64 = -2.0
 	for y := uint(0); y < height; y++ {
@@ -13,14 +15,14 @@ func CalcJulia(
 			var zx float64 = zx0
 			var zy float64 = zy0
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				zx2 := zx * zx
 				zy2 := zy * zy
 				if zx2+zy2 > 4.0 {
 					break
 				}
-				zy = 2.0*zx*zy + cy
-				zx = zx2 - zy2 + cx
+				zy = 2.0*zx*zy + params.Cy0
+				zx = zx2 - zy2 + params.Cx0
 				i++
 			}
 			zimage[y][x] = ZPixel{Iter: i, Z: complex(zx, zy)}
