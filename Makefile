@@ -5,7 +5,6 @@ SHELL := /bin/bash
 SOURCES:=$(shell find . -name '*.go')
 BINARY:=svitava-go
 OUTDIR:=.
-#OUTDIR:=/tmp/ramdisk
 
 default: build
 
@@ -22,3 +21,10 @@ ${OUTDIR}/${BINARY}:	${SOURCES}
 
 benchmark:
 	@go test -bench . ./...
+
+uml.png:	uml.puml
+	java -jar plantuml.jar uml.puml
+
+uml.puml:
+	goplantuml --recursive --show-aggregations --show-connection-labels . > uml.puml
+
