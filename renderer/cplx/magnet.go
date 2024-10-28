@@ -1,19 +1,21 @@
 package cplx
 
+import "github.com/tisnik/svitava-go/params"
+
 // CalcMagnet calculates Magnet Mandelbrot-like set
 func CalcMagnet(
 	width uint, height uint,
-	pcx float64, pcy float64,
-	maxiter uint, zimage ZImage) {
+	params params.Cplx,
+	zimage ZImage) {
 
 	var cy float64 = -2.0
 	for y := uint(0); y < height; y++ {
 		var cx float64 = -2.0
 		for x := uint(0); x < width; x++ {
-			var zx float64 = cx
-			var zy float64 = cy
+			var zx float64 = params.Cx0
+			var zy float64 = params.Cy0
 			var i uint
-			for i < maxiter {
+			for i < params.Maxiter {
 				var zxn float64
 				var zyn float64
 				zx2 := zx * zx
