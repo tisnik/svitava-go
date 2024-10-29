@@ -33,6 +33,20 @@ go build
 ## Configuration
 
 ### Main configuration file
+
+Main configuration file is named `config.toml`. It currently has the following format:
+
+```toml
+[server]
+address = ":8080"
+
+[logging]
+debug = true
+
+[rendering]
+image_format = "png"
+```
+
 ### Fractal parameters files
 
 ## Developing
