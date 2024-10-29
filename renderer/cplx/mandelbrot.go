@@ -3,7 +3,10 @@ package cplx
 import "github.com/tisnik/svitava-go/params"
 
 // CalcMandelbrot calculates Mandelbrot set into the provided ZPixels
-func CalcMandelbrot(width uint, height uint, params params.Cplx, zimage ZImage) {
+func CalcMandelbrot(
+	width uint, height uint,
+	params params.Cplx,
+	zimage ZImage) {
 
 	var cy float64 = -1.5
 	for y := uint(0); y < height; y++ {
