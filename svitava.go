@@ -114,6 +114,8 @@ func main() {
 		img2 = renderer.RenderMagnetFractal(width, height, 255, palette[:])
 		image.WritePNGImage("magnet.png", img2)
 
+		img2 = renderer.RenderMagnetJuliaFractal(width, height, 255, palette[:])
+		image.WritePNGImage("magnet_julia.png", img2)
 		//img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette[:])
 		//image.WritePNGImage("barnsley_j1.png", img)
 	}
