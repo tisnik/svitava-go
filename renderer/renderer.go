@@ -53,13 +53,7 @@ func complexImageToImage(zimage cplx.ZImage, width uint, height uint, palette []
 type fractalFunction = func(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimage cplx.ZImage)
 type fractalFunction2 = func(width uint, height uint, params params.Cplx, zimage cplx.ZImage)
 
-func render(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette [][3]byte, function fractalFunction) image.Image {
-	zimage := cplx.NewZImage(width, height)
-	function(width, height, pcx, pcy, maxiter, zimage)
-	return complexImageToImage(zimage, width, height, palette)
-}
-
-func render2(width uint, height uint, params params.Cplx, palette [][3]byte, function fractalFunction2) image.Image {
+func render(width uint, height uint, params params.Cplx, palette [][3]byte, function fractalFunction2) image.Image {
 	zimage := cplx.NewZImage(width, height)
 	function(width, height, params, zimage)
 	return complexImageToImage(zimage, width, height, palette)
@@ -72,45 +66,100 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 		Cy0:     0,
 		Maxiter: 1000,
 	}
-	return render2(width, height, params, palette, cplx.CalcMandelbrotComplex)
+	return render(width, height, params, palette, cplx.CalcMandelbrotComplex)
 }
 
 // RenderJuliaFractal renders a classic Julia fractal into provided Image.
 func RenderJuliaFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 0.0, 1.0, maxiter, palette, cplx.CalcJulia)
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     1.0,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcJulia)
 }
 
 // RenderBarnsleyFractalM1 renders a classic Barnsley fractal M1 into provided Image.
 func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyM1)
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     1.0,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcBarnsleyM1)
 }
 
 // RenderBarnsleyFractalM2 renders a classic Barnsley fractal M2 into provided Image.
 func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyM2)
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     1.0,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcBarnsleyM2)
 }
 
 // RenderBarnsleyFractalM3 renders a classic Barnsley fractal M3 into provided Image.
 func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyM3)
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     1.0,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcBarnsleyM3)
 }
 
 // RenderBarnsleyFractalJ1 renders a classic Barnsley fractal J1 into provided Image.
 func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 1.0, 1.1, maxiter, palette, cplx.CalcBarnsleyJ1)
+	params := params.Cplx{
+		Cx0:     0.48,
+		Cy0:     -1.32,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcBarnsleyJ1)
 }
 
 // RenderBarnsleyFractalJ2 renders a classic Barnsley fractal J2 into provided Image.
 func RenderBarnsleyFractalJ2(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 1.1, 1.1, maxiter, palette, cplx.CalcBarnsleyJ2)
+	params := params.Cplx{
+		Cx0:     0.5,
+		Cy0:     1.2,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcBarnsleyJ2)
 }
 
 // RenderBarnsleyFractalJ3 renders a classic Barnsley fractal J3 into provided Image.
 func RenderBarnsleyFractalJ3(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 0.0, 0.0, maxiter, palette, cplx.CalcBarnsleyJ3)
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     0.0,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcBarnsleyJ3)
 }
 
 // RenderMagnet renders a classic Magnet fractal into provided Image.
 func RenderMagnetFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
-	return render(width, height, 1.1, 1.1, maxiter, palette, cplx.CalcMagnet)
+	/*params := params.Cplx{
+		Cx0:     1.1,
+		Cy0:     1.1,
+		Maxiter: 1000,
+	}*/
+	params := params.Cplx{
+		Cx0:     0.0,
+		Cy0:     0.0,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcMagnet)
+}
+
+// RenderMagnet renders a classic Magnet Julia fractal into provided Image.
+func RenderMagnetJuliaFractal(width uint, height uint, maxiter uint, palette [][3]byte) image.Image {
+	params := params.Cplx{
+		Cx0:     0.5,
+		Cy0:     -1.5,
+		Maxiter: 1000,
+	}
+	return render(width, height, params, palette, cplx.CalcMagnetJulia)
 }
