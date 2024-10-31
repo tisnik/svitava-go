@@ -21,10 +21,10 @@ import (
 	"github.com/tisnik/svitava-go/configuration"
 	"github.com/tisnik/svitava-go/image"
 	"github.com/tisnik/svitava-go/palettes"
+	"github.com/tisnik/svitava-go/renderer"
 	"github.com/tisnik/svitava-go/server"
 
 	"github.com/tisnik/svitava-go/params"
-	"github.com/tisnik/svitava-go/renderer"
 )
 
 const (
@@ -82,39 +82,42 @@ func main() {
 		width = 256
 		height = 256
 
-		img := renderer.RenderMandelbrotFractal(width, height, 0.0, 0.0, 255, palette)
+		parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
+		fmt.Printf("%v\n%v\n", parameters, err)
+
+		img := renderer.RenderComplexFractal(width, height, parameters["Classic Mandelbrot set"], palette)
 		image.WritePNGImage("mandelbrot.png", img)
+		/*
 
-		img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette)
-		image.WritePNGImage("barnsley_m1.png", img)
+			img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette)
+			image.WritePNGImage("barnsley_m1.png", img)
 
-		img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette)
-		image.WritePNGImage("barnsley_j1.png", img)
+			img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette)
+			image.WritePNGImage("barnsley_j1.png", img)
 
-		img = renderer.RenderBarnsleyFractalM2(width, height, 255, palette)
-		image.WritePNGImage("barnsley_m2.png", img)
+			img = renderer.RenderBarnsleyFractalM2(width, height, 255, palette)
+			image.WritePNGImage("barnsley_m2.png", img)
 
-		img = renderer.RenderBarnsleyFractalJ2(width, height, 255, palette)
-		image.WritePNGImage("barnsley_j2.png", img)
+			img = renderer.RenderBarnsleyFractalJ2(width, height, 255, palette)
+			image.WritePNGImage("barnsley_j2.png", img)
 
-		img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette)
-		image.WritePNGImage("barnsley_m3.png", img)
+			img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette)
+			image.WritePNGImage("barnsley_m3.png", img)
 
-		img = renderer.RenderBarnsleyFractalJ3(width, height, 255, palette)
-		image.WritePNGImage("barnsley_j3.png", img)
+			img = renderer.RenderBarnsleyFractalJ3(width, height, 255, palette)
+			image.WritePNGImage("barnsley_j3.png", img)
 
-		img2 := renderer.RenderJuliaFractal(width, height, 255, palette)
-		image.WritePNGImage("julia.png", img2)
+			img2 := renderer.RenderJuliaFractal(width, height, 255, palette)
+			image.WritePNGImage("julia.png", img2)
 
-		img2 = renderer.RenderMagnetFractal(width, height, 255, palette)
-		image.WritePNGImage("magnet.png", img2)
+			img2 = renderer.RenderMagnetFractal(width, height, 255, palette)
+			image.WritePNGImage("magnet.png", img2)
 
-		img2 = renderer.RenderMagnetJuliaFractal(width, height, 255, palette)
-		image.WritePNGImage("magnet_julia.png", img2)
-		//img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette)
-		//image.WritePNGImage("barnsley_j1.png", img)
+			img2 = renderer.RenderMagnetJuliaFractal(width, height, 255, palette)
+			image.WritePNGImage("magnet_julia.png", img2)
+			//img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette)
+			//image.WritePNGImage("barnsley_j1.png", img)
+		*/
 	}
 
-	parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
-	fmt.Printf("%v\n%v\n", parameters, err)
 }
