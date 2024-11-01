@@ -10,6 +10,7 @@ import (
 
 type Cplx struct {
 	Name    string  `toml:"name"`
+	Type    string  `toml:"type"`
 	Cx0     float64 `toml:"cx0"`
 	Cy0     float64 `toml:"cy0"`
 	Maxiter uint    `toml:"maxiter"`
@@ -23,22 +24,26 @@ type CplxParams struct {
 	Parameters []Cplx `toml:"complex_fractal"`
 }
 
-func LoadCplxParameters(filename string) ([]Cplx, error) {
+func LoadCplxParameters(filename string) (map[string]Cplx, error) {
 	var parameters CplxParams
+	asMap := map[string]Cplx{}
 
 	_, err := os.Stat(filename)
 
 	if os.IsNotExist(err) {
-		return parameters.Parameters, errors.New("Parameter file does not exist.")
+		return asMap, errors.New("Parameter file does not exist.")
 	}
 	if err != nil {
-		return parameters.Parameters, err
+		return asMap, err
 	}
 
 	_, err = toml.DecodeFile(filename, &parameters)
 	if err != nil {
 		log.Fatal(err)
-		return parameters.Parameters, err
+		return asMap, err
 	}
-	return parameters.Parameters, nil
+	for _, parameter := range parameters.Parameters {
+		asMap[parameter.Name] = parameter
+	}
+	return asMap, nil
 }
