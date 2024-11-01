@@ -60,6 +60,13 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 	return complexImageToImage(zimage, width, height, palette)
 }
 
+func RenderComplexFractal(width uint, height uint, params params.Cplx, palette palettes.Palette) image.Image {
+	functions := map[string]fractalFunction2{}
+	functions["Classic Mandelbrot set"] = cplx.CalcMandelbrotComplex
+
+	return render(width, height, params, palette, functions[params.Name])
+}
+
 // RenderMandelbrotFractal renders a classic Mandelbrot fractal into provided Image.
 func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette palettes.Palette) image.Image {
 	params := params.Cplx{
