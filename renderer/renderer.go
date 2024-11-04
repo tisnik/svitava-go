@@ -24,11 +24,15 @@ func init() {
 	println("Init")
 }
 
-func waitForWorkers(done chan bool, height uint) {
-	for i := uint(0); i < height; i++ {
-		println(i)
-		<-done
-	}
+type Renderer interface {
+	RenderComplexFractal(width uint, height uint, params params.Cplx, palette palettes.Palette) image.Image
+}
+
+type SingleGoroutineRenderer struct {
+}
+
+func NewSingleGoroutineRenderer() Renderer {
+	return SingleGoroutineRenderer{}
 }
 
 func complexImageToImage(zimage cplx.ZImage, width uint, height uint, palette palettes.Palette) image.Image {
@@ -60,7 +64,7 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 	return complexImageToImage(zimage, width, height, palette)
 }
 
-func RenderComplexFractal(width uint, height uint, params params.Cplx, palette palettes.Palette) image.Image {
+func (r SingleGoroutineRenderer) RenderComplexFractal(width uint, height uint, params params.Cplx, palette palettes.Palette) image.Image {
 	functions := map[string]fractalFunction2{}
 	functions["Classic Mandelbrot set"] = cplx.CalcMandelbrotComplex
 
