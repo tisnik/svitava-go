@@ -76,16 +76,19 @@ func main() {
 
 	if startServer {
 		log.Println("Starting server")
-		server.StartServer(port)
+		server := server.NewHTTPServer(port)
+		server.Serve()
 	} else {
 		log.Println("Starting renderer")
 		width = 256
 		height = 256
 
+		r := renderer.NewSingleGoroutineRenderer()
+
 		parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
 		fmt.Printf("%v\n%v\n", parameters, err)
 
-		img := renderer.RenderComplexFractal(width, height, parameters["Classic Mandelbrot set"], palette)
+		img := r.RenderComplexFractal(width, height, parameters["Classic Mandelbrot set"], palette)
 		image.WritePNGImage("mandelbrot.png", img)
 		/*
 
