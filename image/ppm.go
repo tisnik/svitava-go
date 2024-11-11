@@ -13,27 +13,32 @@
 package image
 
 import (
-	"bufio"
 	"fmt"
+	"image"
+	"log"
 	"os"
 )
 
-// WritePPMImage writes an image represented by byte slice into file with PPM format.
-func WritePPMImage(width uint, height uint, image []byte) {
-	w := bufio.NewWriter(os.Stdout)
-	defer w.Flush()
+// WritePPMImage writes an image represented by standard image.Image structure into file with PPM format.
+func WritePPMImage(filename string, img image.Image) {
+	file, err := os.Create(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
 
-	fmt.Fprintln(w, "P3")
-	fmt.Fprintf(w, "%d %d\n", width, height)
-	fmt.Fprintln(w, "255")
+	bounds := img.Bounds()
+	width := bounds.Max.X - bounds.Min.X
+	height := bounds.Max.Y - bounds.Min.Y
 
-	for i := 0; i < len(image); {
-		r := image[i]
-		i++
-		g := image[i]
-		i++
-		b := image[i]
-		i++
-		fmt.Fprintf(w, "%d %d %d\n", r, g, b)
+	fmt.Fprintln(file, "P3")
+	fmt.Fprintf(file, "%d %d\n", width, height)
+	fmt.Fprintln(file, "255")
+
+	for y := range height {
+		for x := range width {
+			r, g, b, _ := img.At(x, y).RGBA()
+			fmt.Fprintf(file, "%d %d %d\n", r>>8, g>>8, b>>8)
+		}
 	}
 }
