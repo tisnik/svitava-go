@@ -18,7 +18,7 @@ import (
 	"os"
 )
 
-// WritePNGImage writes an image represented by byte slice into file with PNG format.
+// WritePNGImage writes an image represented by standard image.Image structure into file with PNG format.
 func WritePNGImage(filename string, img image.Image) {
 	outfile, err := os.Create(filename)
 	if err != nil {
