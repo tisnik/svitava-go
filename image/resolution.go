@@ -16,3 +16,10 @@ type Resolution struct {
 	Width  uint
 	Height uint
 }
+
+func NewResolution(width, height uint) Resolution {
+	return Resolution{
+		Width:  width,
+		Height: height,
+	}
+}
