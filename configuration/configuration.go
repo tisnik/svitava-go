@@ -36,6 +36,7 @@ type LoggingConfiguration struct {
 
 type RenderingConfiguration struct {
 	ImageFormat string `toml:"image_format"`
+	BinaryPPM   bool   `toml:"binary_bpm"`
 }
 
 func LoadConfiguration(configFileName string) (Configuration, error) {
