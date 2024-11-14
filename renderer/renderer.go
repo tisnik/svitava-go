@@ -15,6 +15,7 @@ package renderer
 import (
 	"image"
 
+	im "github.com/tisnik/svitava-go/image"
 	"github.com/tisnik/svitava-go/palettes"
 	"github.com/tisnik/svitava-go/params"
 	"github.com/tisnik/svitava-go/renderer/cplx"
@@ -25,7 +26,7 @@ func init() {
 }
 
 type Renderer interface {
-	RenderComplexFractal(width uint, height uint, params params.Cplx, palette palettes.Palette) image.Image
+	RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image
 }
 
 type SingleGoroutineRenderer struct {
@@ -64,11 +65,11 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 	return complexImageToImage(zimage, width, height, palette)
 }
 
-func (r SingleGoroutineRenderer) RenderComplexFractal(width uint, height uint, params params.Cplx, palette palettes.Palette) image.Image {
+func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image {
 	functions := map[string]fractalFunction2{}
 	functions["Classic Mandelbrot set"] = cplx.CalcMandelbrotComplex
 
-	return render(width, height, params, palette, functions[params.Name])
+	return render(resolution.Width, resolution.Height, params, palette, functions[params.Name])
 }
 
 // RenderMandelbrotFractal renders a classic Mandelbrot fractal into provided Image.
