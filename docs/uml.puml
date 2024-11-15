@@ -12,6 +12,7 @@ namespace configuration {
     }
     class RenderingConfiguration << (S,Aquamarine) >> {
         + ImageFormat string
+        + BinaryPPM bool
 
     }
     class ServerConfiguration << (S,Aquamarine) >> {
@@ -39,6 +40,20 @@ namespace cplx {
 
 
 
+namespace image {
+    class Resolution << (S,Aquamarine) >> {
+        + Width uint
+        + Height uint
+
+    }
+    interface Writer  {
+        + WriteImage(filename string, img image.Image) error
+
+    }
+}
+
+
+
 namespace palettes {
     class Palette << (S,Aquamarine) >> {
         + SaveBinaryRGBPalette(filename string) error
@@ -56,6 +71,7 @@ namespace palettes {
 namespace params {
     class Cplx << (S,Aquamarine) >> {
         + Name string
+        + Type string
         + Cx0 float64
         + Cy0 float64
         + Maxiter uint
@@ -75,6 +91,14 @@ namespace params {
 "params.CplxParams""uses" o-- "params.Cplx"
 
 namespace renderer {
+    interface Renderer  {
+        + RenderComplexFractal(resolution image.Resolution, params params.Cplx, palette palettes.Palette) image.Image
+
+    }
+    class SingleGoroutineRenderer << (S,Aquamarine) >> {
+        + RenderComplexFractal(resolution image.Resolution, params params.Cplx, palette palettes.Palette) image.Image
+
+    }
     class renderer.fractalFunction << (T, #FF7700) >>  {
     }
     class renderer.fractalFunction2 << (T, #FF7700) >>  {
@@ -87,6 +111,29 @@ namespace renderer {
     }
 }
 
+"renderer.Renderer" <|-- "implements""renderer.SingleGoroutineRenderer"
+
+
+namespace server {
+    class HTTPServer << (S,Aquamarine) >> {
+        - port uint
+
+        - indexPageHandler(w http.ResponseWriter, r *http.Request) 
+        - newFractalPageHandler(w http.ResponseWriter, r *http.Request) 
+        - galleryPageHandler(w http.ResponseWriter, r *http.Request) 
+        - settingsPageHandler(w http.ResponseWriter, r *http.Request) 
+        - staticImageHandler(w http.ResponseWriter, r *http.Request) 
+
+        + Serve() 
+
+    }
+    interface Server  {
+        + Serve() 
+
+    }
+}
+
+"server.Server" <|-- "implements""server.HTTPServer"
 
 
 "__builtin__.[][]byte" #.. "alias of""palettes.Palette"
