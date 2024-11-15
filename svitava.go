@@ -80,16 +80,24 @@ func main() {
 		server.Serve()
 	} else {
 		log.Println("Starting renderer")
-		width = 256
-		height = 256
+		resolution := image.Resolution{
+			Width:  256,
+			Height: 256,
+		}
 
 		r := renderer.NewSingleGoroutineRenderer()
 
 		parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
 		fmt.Printf("%v\n%v\n", parameters, err)
 
-		img := r.RenderComplexFractal(width, height, parameters["Classic Mandelbrot set"], palette)
-		image.WritePNGImage("mandelbrot.png", img)
+		img := r.RenderComplexFractal(resolution, parameters["Classic Mandelbrot set"], palette)
+		/*
+			image.WritePNGImage("mandelbrot.png", img)
+			image.WritePPMImage("mandelbrot.ppm", img)
+			image.WriteJPEGImage("mandelbrot.jpg", img)
+			image.WriteGIFImage("mandelbrot.gif", img)
+		*/
+		image.WriteBMPImage("mandelbrot.bmp", img)
 		/*
 
 			img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette)
