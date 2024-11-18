@@ -18,12 +18,20 @@ import (
 	"os"
 )
 
-// WriteJPEGImage writes an image represented by standard image.Image structure into file with JPEG format.
-func WriteJPEGImage(filename string, img image.Image) {
+// JPEGImageWriter implements image.Writer interface, it writes JPEG format
+type JPEGImageWriter struct{}
+
+// WriteImage writes an image represented by standard image.Image structure into file with JPEG format.
+func (writer JPEGImageWriter) WriteImage(filename string, img image.Image) error {
 	outfile, err := os.Create(filename)
 	if err != nil {
 		panic(err)
 	}
 	defer outfile.Close()
-	jpeg.Encode(outfile, img, nil)
+	return jpeg.Encode(outfile, img, nil)
+}
+
+// NewJPEGImageWriter is a constructor for JPEG image writer
+func NewJPEGImageWriter() JPEGImageWriter {
+	return JPEGImageWriter{}
 }
