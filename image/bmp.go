@@ -18,8 +18,11 @@ import (
 	"os"
 )
 
-// WriteBMPImage writes an image represented by byte slice into file with BMP format.
-func WriteBMPImage(filename string, img image.Image) {
+// BMPImageWriter implements image.Writer interface, it writes BMP format
+type BMPImageWriter struct{}
+
+// WriteImage writes an image represented by byte slice into file with BMP format.
+func (writer BMPImageWriter) WriteImage(filename string, img image.Image) error {
 	file, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -69,4 +72,11 @@ func WriteBMPImage(filename string, img image.Image) {
 			file.Write(color)
 		}
 	}
+	// no error
+	return nil
+}
+
+// NewBMPImageWriter is a constructor for BMP image writer
+func NewBMPImageWriter() BMPImageWriter {
+	return BMPImageWriter{}
 }
