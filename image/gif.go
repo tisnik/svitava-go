@@ -18,12 +18,20 @@ import (
 	"os"
 )
 
+// GIFImageWriter implements image.Writer interface, it writes GIF format
+type GIFImageWriter struct{}
+
 // WriteGIFImage writes an image represented by standard image.Image structure into file with GIF format.
-func WriteGIFImage(filename string, img image.Image) {
+func (writer GIFImageWriter) WriteImage(filename string, img image.Image) error {
 	outfile, err := os.Create(filename)
 	if err != nil {
 		panic(err)
 	}
 	defer outfile.Close()
-	gif.Encode(outfile, img, nil)
+	return gif.Encode(outfile, img, nil)
+}
+
+// NewGIFImageWriter is a constructor for GIF image writer
+func NewGIFImageWriter() GIFImageWriter {
+	return GIFImageWriter{}
 }
