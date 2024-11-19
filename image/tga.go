@@ -12,6 +12,17 @@
 
 package image
 
-// WriteBMPImage writes an image represented by byte slice into file with BMP format.
-func WriteTGAImage(filename string, width uint, height uint, rawData []byte) {
+import "image"
+
+// TGAImageWriter implements image.Writer interface, it writes TGA format
+type TGAImageWriter struct{}
+
+// WriteBMPImage writes an image represented by byte slice into file with TGA format.
+func (writer TGAImageWriter) WriteImage(filename string, img image.Image) error {
+	return nil
+}
+
+// NewTGAImageWriter is a constructor for TGA image writer
+func NewTGAImageWriter() TGAImageWriter {
+	return TGAImageWriter{}
 }
