@@ -19,8 +19,11 @@ import (
 	"os"
 )
 
+// PPMImageWriter implements image.Writer interface, it writes into selected PPM format
+type PPMImageWriter struct{}
+
 // WritePPMImage writes an image represented by standard image.Image structure into file with PPM format.
-func WritePPMImage(filename string, img image.Image) {
+func (writer PPMImageWriter) WriteImage(filename string, img image.Image) error {
 	file, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
@@ -41,4 +44,10 @@ func WritePPMImage(filename string, img image.Image) {
 			fmt.Fprintf(file, "%d %d %d\n", r>>8, g>>8, b>>8)
 		}
 	}
+	return nil
+}
+
+// NewPPMImageWriter is a constructor for PPM image writer
+func NewPPMImageWriter() PPMImageWriter {
+	return PPMImageWriter{}
 }
