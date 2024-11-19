@@ -18,12 +18,20 @@ import (
 	"os"
 )
 
+// PNGImageWriter implements image.Writer interface, it writes PNG format
+type PNGImageWriter struct{}
+
 // WritePNGImage writes an image represented by standard image.Image structure into file with PNG format.
-func WritePNGImage(filename string, img image.Image) {
+func (writer PNGImageWriter) WriteImage(filename string, img image.Image) error {
 	outfile, err := os.Create(filename)
 	if err != nil {
 		panic(err)
 	}
 	defer outfile.Close()
-	png.Encode(outfile, img)
+	return png.Encode(outfile, img)
+}
+
+// NewPNGImageWriter is a constructor for PNG image writer
+func NewPNGImageWriter() PNGImageWriter {
+	return PNGImageWriter{}
 }
