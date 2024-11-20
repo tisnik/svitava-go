@@ -13,9 +13,15 @@
 package server
 
 import (
+	"image/png"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/tisnik/svitava-go/image"
+	"github.com/tisnik/svitava-go/palettes"
+	"github.com/tisnik/svitava-go/params"
+	"github.com/tisnik/svitava-go/renderer"
 )
 
 type Server interface {
@@ -23,12 +29,14 @@ type Server interface {
 }
 
 type HTTPServer struct {
-	port uint
+	port     uint
+	renderer renderer.Renderer
 }
 
-func NewHTTPServer(port uint) Server {
+func NewHTTPServer(port uint, renderer renderer.Renderer) Server {
 	return HTTPServer{
-		port: port,
+		port:     port,
+		renderer: renderer,
 	}
 }
 
@@ -52,6 +60,17 @@ func (s HTTPServer) staticImageHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "web-content/images/"+fileName)
 }
 
+func (s HTTPServer) fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) {
+	resolution := image.Resolution{
+		Width:  128,
+		Height: 128,
+	}
+	palette, _ := palettes.LoadTextRGBPalette("data/mandmap.map")
+	parameters, _ := params.LoadCplxParameters("data/complex_fractals.toml")
+	img := s.renderer.RenderComplexFractal(resolution, parameters["Classic Mandelbrot set"], palette)
+	png.Encode(w, img)
+}
+
 // Serve starts HTTP server that provides all static and dynamic data
 func (s HTTPServer) Serve() {
 	log.Printf("Starting server on port %d", s.port)
@@ -61,9 +80,10 @@ func (s HTTPServer) Serve() {
 	http.HandleFunc("/new-fractal", s.newFractalPageHandler)
 	http.HandleFunc("/gallery", s.galleryPageHandler)
 	http.HandleFunc("/settings", s.settingsPageHandler)
-	//http.HandleFunc("/image/", staticImageHandler)
-	imageServer := http.FileServer(http.Dir("web-content/images/"))
-	http.Handle("/image/", http.StripPrefix("/image", imageServer))
+	http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
+
+	//imageServer := http.FileServer(http.Dir("web-content/images/"))
+	//http.Handle("/image/", http.StripPrefix("/image", imageServer))
 
 	http.ListenAndServe(":8080", nil)
 }
