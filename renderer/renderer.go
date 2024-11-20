@@ -68,6 +68,7 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image {
 	functions := map[string]fractalFunction2{}
 	functions["Classic Mandelbrot set"] = cplx.CalcMandelbrotComplex
+	functions["Mandelbrot set z=z^3+c"] = cplx.CalcMandelbrotZ3
 
 	return render(resolution.Width, resolution.Height, params, palette, functions[params.Name])
 }
