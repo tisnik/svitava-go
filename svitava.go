@@ -76,7 +76,8 @@ func main() {
 
 	if startServer {
 		log.Println("Starting server")
-		server := server.NewHTTPServer(port)
+		r := renderer.NewSingleGoroutineRenderer()
+		server := server.NewHTTPServer(port, r)
 		server.Serve()
 	} else {
 		log.Println("Starting renderer")
@@ -90,14 +91,28 @@ func main() {
 		parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
 		fmt.Printf("%v\n%v\n", parameters, err)
 
-		img := r.RenderComplexFractal(resolution, parameters["Classic Mandelbrot set"], palette)
+		var writer image.Writer
+
+		img := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=z^4+c"], palette)
+		writer = image.NewBMPImageWriter()
+		writer.WriteImage("mandelbrot.bmp", img)
+
 		/*
-			image.WritePNGImage("mandelbrot.png", img)
-			image.WritePPMImage("mandelbrot.ppm", img)
-			image.WriteJPEGImage("mandelbrot.jpg", img)
-			image.WriteGIFImage("mandelbrot.gif", img)
+			writer = image.NewGIFImageWriter()
+			writer.WriteImage("mandelbrot.gif", img)
+
+			writer = image.NewJPEGImageWriter()
+			writer.WriteImage("mandelbrot.jpg", img)
+
+			writer = image.NewPNGImageWriter()
+			writer.WriteImage("mandelbrot.png", img)
+
+			writer = image.NewPPMImageWriter()
+			writer.WriteImage("mandelbrot.ppm", img)
+
+			writer = image.NewTGAImageWriter()
+			writer.WriteImage("mandelbrot.tga", img)
 		*/
-		image.WriteBMPImage("mandelbrot.bmp", img)
 		/*
 
 			img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette)
