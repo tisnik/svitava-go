@@ -97,3 +97,30 @@ func CalcMandelbrotZ3(width uint, height uint, params params.Cplx, zimage ZImage
 		cy += 3.0 / float64(height)
 	}
 }
+
+// CalcMandelbrotZ4 calculates Mandelbrot set z=z^4+c into the provided ZPixels
+// Calculations use complex numbers
+func CalcMandelbrotZ4(width uint, height uint, params params.Cplx, zimage ZImage) {
+
+	var cy float64 = -1.5
+	for y := uint(0); y < height; y++ {
+		var cx float64 = -1.5
+		for x := uint(0); x < width; x++ {
+			var c complex128 = complex(cx, cy)
+			var z complex128 = complex(params.Cx0, params.Cy0)
+			var i uint
+			for i < params.Maxiter {
+				zx := real(z)
+				zy := imag(z)
+				if zx*zx+zy*zy > 4.0 {
+					break
+				}
+				z = z*z*z*z + c
+				i++
+			}
+			zimage[y][x] = ZPixel{Iter: i, Z: z}
+			cx += 3.0 / float64(width)
+		}
+		cy += 3.0 / float64(height)
+	}
+}
