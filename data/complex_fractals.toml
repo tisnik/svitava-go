@@ -6,6 +6,20 @@ cy0 = 0.0
 maxiter = 1000
 
 [[complex_fractal]]
+name = "Mandelbrot set z=z^3+c"
+type = "mandelbrot_z3"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+
+[[complex_fractal]]
+name = "Mandelbrot set z=z^4+c"
+type = "mandelbrot_z4"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+
+[[complex_fractal]]
 name = "Classic Julia set"
 type = "julia"
 cx0 = 0.0
