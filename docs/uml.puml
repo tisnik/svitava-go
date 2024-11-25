@@ -40,10 +40,62 @@ namespace cplx {
 
 
 
+namespace deepimage {
+    class DeepImage << (S,Aquamarine) >> {
+        + Z ZImage
+        + R RImage
+        + I IImage
+        + RGBB image.Image
+
+    }
+    class deepimage.IImage << (T, #FF7700) >>  {
+    }
+    class deepimage.IPixel << (T, #FF7700) >>  {
+    }
+    class deepimage.RImage << (T, #FF7700) >>  {
+    }
+    class deepimage.RPixel << (T, #FF7700) >>  {
+    }
+    class deepimage.ZImage << (T, #FF7700) >>  {
+    }
+    class deepimage.ZPixel << (T, #FF7700) >>  {
+    }
+}
+
+
+"deepimage.DeepImage""uses" o-- "deepimage.IImage"
+"deepimage.DeepImage""uses" o-- "deepimage.RImage"
+"deepimage.DeepImage""uses" o-- "deepimage.ZImage"
+"deepimage.DeepImage""uses" o-- "image.Image"
+
 namespace image {
+    class BMPImageWriter << (S,Aquamarine) >> {
+        + WriteImage(filename string, img image.Image) error
+
+    }
+    class GIFImageWriter << (S,Aquamarine) >> {
+        + WriteImage(filename string, img image.Image) error
+
+    }
+    class JPEGImageWriter << (S,Aquamarine) >> {
+        + WriteImage(filename string, img image.Image) error
+
+    }
+    class PNGImageWriter << (S,Aquamarine) >> {
+        + WriteImage(filename string, img image.Image) error
+
+    }
+    class PPMImageWriter << (S,Aquamarine) >> {
+        + WriteImage(filename string, img image.Image) error
+
+    }
     class Resolution << (S,Aquamarine) >> {
         + Width uint
         + Height uint
+
+    }
+    class TGAImageWriter << (S,Aquamarine) >> {
+        + WriteImage(filename string, img image.Image) error
 
     }
     interface Writer  {
@@ -52,6 +104,12 @@ namespace image {
     }
 }
 
+"image.Writer" <|-- "implements""image.BMPImageWriter"
+"image.Writer" <|-- "implements""image.GIFImageWriter"
+"image.Writer" <|-- "implements""image.JPEGImageWriter"
+"image.Writer" <|-- "implements""image.PNGImageWriter"
+"image.Writer" <|-- "implements""image.PPMImageWriter"
+"image.Writer" <|-- "implements""image.TGAImageWriter"
 
 
 namespace palettes {
@@ -117,12 +175,14 @@ namespace renderer {
 namespace server {
     class HTTPServer << (S,Aquamarine) >> {
         - port uint
+        - renderer renderer.Renderer
 
         - indexPageHandler(w http.ResponseWriter, r *http.Request) 
         - newFractalPageHandler(w http.ResponseWriter, r *http.Request) 
         - galleryPageHandler(w http.ResponseWriter, r *http.Request) 
         - settingsPageHandler(w http.ResponseWriter, r *http.Request) 
         - staticImageHandler(w http.ResponseWriter, r *http.Request) 
+        - fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) 
 
         + Serve() 
 
@@ -137,7 +197,13 @@ namespace server {
 
 
 "__builtin__.[][]byte" #.. "alias of""palettes.Palette"
+"__builtin__.complex128" #.. "alias of""deepimage.ZPixel"
+"__builtin__.float64" #.. "alias of""deepimage.RPixel"
+"__builtin__.uint64" #.. "alias of""deepimage.IPixel"
 "cplx.[][]ZPixel" #.. "alias of""cplx.ZImage"
+"deepimage.[][]IPixel" #.. "alias of""deepimage.IImage"
+"deepimage.[][]RPixel" #.. "alias of""deepimage.RImage"
+"deepimage.[][]ZPixel" #.. "alias of""deepimage.ZImage"
 "renderer.fontcolorbluefuncfontuintuintfloat64float64uintcplxZImage" #.. "alias of""renderer.fractalFunction"
 "renderer.fontcolorbluefuncfontuintuintparamsCplxcplxZImage" #.. "alias of""renderer.fractalFunction2"
 @enduml
