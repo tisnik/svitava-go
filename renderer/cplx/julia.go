@@ -12,18 +12,20 @@
 
 package cplx
 
-import "github.com/tisnik/svitava-go/params"
+import (
+	"github.com/tisnik/svitava-go/deepimage"
+	"github.com/tisnik/svitava-go/params"
+)
 
 // CalcJulia calculates classic Julia fractal
 func CalcJulia(
-	width uint, height uint,
 	params params.Cplx,
-	zimage ZImage) {
+	image deepimage.Image) {
 
 	var zy0 float64 = -2.0
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var zx0 float64 = -2.0
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = zx0
 			var zy float64 = zy0
 			var i uint
@@ -37,9 +39,10 @@ func CalcJulia(
 				zx = zx2 - zy2 + params.Cx0
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: complex(zx, zy)}
-			zx0 += 4.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
+			image.I[y][x] = deepimage.IPixel(i)
+			zx0 += 4.0 / float64(image.Resolution.Width)
 		}
-		zy0 += 4.0 / float64(height)
+		zy0 += 4.0 / float64(image.Resolution.Height)
 	}
 }
