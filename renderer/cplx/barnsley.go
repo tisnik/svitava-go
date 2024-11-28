@@ -12,18 +12,20 @@
 
 package cplx
 
-import "github.com/tisnik/svitava-go/params"
+import (
+	"github.com/tisnik/svitava-go/deepimage"
+	"github.com/tisnik/svitava-go/params"
+)
 
 // CalcBarnsleyM1 calculates Barnsley M1 Mandelbrot-like set
 func CalcBarnsleyM1(
-	width uint, height uint,
 	params params.Cplx,
-	zimage ZImage) {
+	image deepimage.Image) {
 
 	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var cx float64 = -2.0
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = cx
 			var zy float64 = cy
 			var i uint
@@ -46,23 +48,23 @@ func CalcBarnsleyM1(
 				zy = zyn
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: complex(zx, zy)}
-			cx += 4.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
+			image.I[y][x] = deepimage.IPixel(i)
+			cx += 4.0 / float64(image.Resolution.Width)
 		}
-		cy += 4.0 / float64(height)
+		cy += 4.0 / float64(image.Resolution.Height)
 	}
 }
 
 // CalcBarnsleyM2 calculates Barnsley M2 Mandelbrot-like set
 func CalcBarnsleyM2(
-	width uint, height uint,
 	params params.Cplx,
-	zimage ZImage) {
+	image deepimage.Image) {
 
 	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var cx float64 = -2.0
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = cx
 			var zy float64 = cy
 			var i uint
@@ -85,23 +87,23 @@ func CalcBarnsleyM2(
 				zy = zyn
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: complex(zx, zy)}
-			cx += 4.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
+			image.I[y][x] = deepimage.IPixel(i)
+			cx += 4.0 / float64(image.Resolution.Width)
 		}
-		cy += 4.0 / float64(height)
+		cy += 4.0 / float64(image.Resolution.Height)
 	}
 }
 
 // CalcBarnsleyM3 calculates Barnsley M3 Mandelbrot-like set
 func CalcBarnsleyM3(
-	width uint, height uint,
 	params params.Cplx,
-	zimage ZImage) {
+	image deepimage.Image) {
 
 	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var cx float64 = -2.0
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = cx
 			var zy float64 = cy
 			var i uint
@@ -124,9 +126,10 @@ func CalcBarnsleyM3(
 				zy = zyn
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: complex(zx, zy)}
-			cx += 4.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
+			image.I[y][x] = deepimage.IPixel(i)
+			cx += 4.0 / float64(image.Resolution.Width)
 		}
-		cy += 4.0 / float64(height)
+		cy += 4.0 / float64(image.Resolution.Height)
 	}
 }
