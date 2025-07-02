@@ -12,18 +12,20 @@
 
 package cplx
 
-import "github.com/tisnik/svitava-go/params"
+import (
+	"github.com/tisnik/svitava-go/deepimage"
+	"github.com/tisnik/svitava-go/params"
+)
 
 // CalcMagnet calculates Magnet Mandelbrot-like set
 func CalcMagnet(
-	width uint, height uint,
 	params params.Cplx,
-	zimage ZImage) {
+	image deepimage.Image) {
 
 	var cy float64 = -2.0
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var cx float64 = -2.0
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = params.Cx0
 			var zy float64 = params.Cy0
 			var i uint
@@ -53,9 +55,10 @@ func CalcMagnet(
 				zy = 2.0 * zxn * zyn
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: complex(zx, zy)}
-			cx += 4.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
+			image.I[y][x] = deepimage.IPixel(i)
+			cx += 4.0 / float64(image.Resolution.Width)
 		}
-		cy += 4.0 / float64(height)
+		cy += 4.0 / float64(image.Resolution.Height)
 	}
 }
