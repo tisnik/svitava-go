@@ -49,6 +49,26 @@ image_format = "png"
 
 ### Fractal parameters files
 
+```toml
+[[complex_fractal]]
+name = "Classic Mandelbrot set"
+type = "mandelbrot"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+
+[[complex_fractal]]
+name = "Mandelbrot set z=z^3+c"
+type = "mandelbrot_z3"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+
+...
+...
+...
+```
+
 ## Developing
 
 ## Contribution
