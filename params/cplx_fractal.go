@@ -1,5 +1,5 @@
 //
-//  (C) Copyright 2024  Pavel Tisnovsky
+//  (C) Copyright 2024 - 2025  Pavel Tisnovsky
 //
 //  All rights reserved. This program and the accompanying materials
 //  are made available under the terms of the Eclipse Public License v1.0
@@ -20,6 +20,9 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+// Cplx structure contains information about all fractal parameters.
+//
+// None: currently, only fractals in complex plane are supported
 type Cplx struct {
 	Name    string  `toml:"name"`
 	Type    string  `toml:"type"`
@@ -32,10 +35,12 @@ type Cplx struct {
 	Ymax    float64 `toml:"ymax"`
 }
 
+// Sequence of fractal parameters
 type CplxParams struct {
 	Parameters []Cplx `toml:"complex_fractal"`
 }
 
+// LoadCplxParameters function reads fractal parameters from external text file
 func LoadCplxParameters(filename string) (map[string]Cplx, error) {
 	var parameters CplxParams
 	asMap := map[string]Cplx{}
