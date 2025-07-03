@@ -1,5 +1,5 @@
 //
-//  (C) Copyright 2019, 2020, 2021, 2022, 2023, 2024  Pavel Tisnovsky
+//  (C) Copyright 2019 - 2025  Pavel Tisnovsky
 //
 //  All rights reserved. This program and the accompanying materials
 //  are made available under the terms of the Eclipse Public License v1.0
@@ -24,15 +24,19 @@ import (
 	"github.com/tisnik/svitava-go/renderer"
 )
 
+// Server interface can be satisfied by any structure that implements Serve()
+// method
 type Server interface {
 	Serve()
 }
 
+// HTTPServer structure that satisfy Server interface
 type HTTPServer struct {
 	port     uint
 	renderer renderer.Renderer
 }
 
+// NewHTTPServer constructs new instance of HTTP server
 func NewHTTPServer(port uint, renderer renderer.Renderer) Server {
 	return HTTPServer{
 		port:     port,
@@ -71,7 +75,7 @@ func (s HTTPServer) fractalTypeImageHandler(w http.ResponseWriter, r *http.Reque
 	png.Encode(w, img)
 }
 
-// Serve starts HTTP server that provides all static and dynamic data
+// Serve method starts HTTP server that provides all static and dynamic data
 func (s HTTPServer) Serve() {
 	log.Printf("Starting server on port %d", s.port)
 	/* http.Handle("/", http.FileServer(http.Dir("web-content/"))) */
