@@ -25,3 +25,17 @@ type = "julia"
 cx0 = 0.0
 cy0 = 1.0
 maxiter = 1000
+
+[[complex_fractal]]
+name = "Phoenix set, Mandelbrot variant"
+type = "phoenix_m"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+
+[[complex_fractal]]
+name = "Phoenix set, Julia variant"
+type = "phoenix_j"
+cx0 = 0.0
+cy0 = 1.0
+maxiter = 1000
