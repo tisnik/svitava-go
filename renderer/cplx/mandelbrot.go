@@ -79,12 +79,14 @@ func CalcMandelbrotComplex(
 
 // CalcMandelbrotZ3 calculates Mandelbrot set z=z^3+c into the provided ZPixels
 // Calculations use complex numbers
-func CalcMandelbrotZ3(width uint, height uint, params params.Cplx, zimage ZImage) {
+func CalcMandelbrotZ3(
+	params params.Cplx,
+	image deepimage.Image) {
 
 	var cy float64 = -1.5
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var cx float64 = -1.5
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var c complex128 = complex(cx, cy)
 			var z complex128 = complex(params.Cx0, params.Cy0)
 			var i uint
@@ -97,21 +99,24 @@ func CalcMandelbrotZ3(width uint, height uint, params params.Cplx, zimage ZImage
 				z = z*z*z + c
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: z}
-			cx += 3.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(z)
+			image.I[y][x] = deepimage.IPixel(i)
+			cx += 3.0 / float64(image.Resolution.Width)
 		}
-		cy += 3.0 / float64(height)
+		cy += 3.0 / float64(image.Resolution.Height)
 	}
 }
 
 // CalcMandelbrotZ4 calculates Mandelbrot set z=z^4+c into the provided ZPixels
 // Calculations use complex numbers
-func CalcMandelbrotZ4(width uint, height uint, params params.Cplx, zimage ZImage) {
+func CalcMandelbrotZ4(
+	params params.Cplx,
+	image deepimage.Image) {
 
 	var cy float64 = -1.5
-	for y := uint(0); y < height; y++ {
+	for y := uint(0); y < image.Resolution.Height; y++ {
 		var cx float64 = -1.5
-		for x := uint(0); x < width; x++ {
+		for x := uint(0); x < image.Resolution.Width; x++ {
 			var c complex128 = complex(cx, cy)
 			var z complex128 = complex(params.Cx0, params.Cy0)
 			var i uint
@@ -124,9 +129,10 @@ func CalcMandelbrotZ4(width uint, height uint, params params.Cplx, zimage ZImage
 				z = z*z*z*z + c
 				i++
 			}
-			zimage[y][x] = ZPixel{Iter: i, Z: z}
-			cx += 3.0 / float64(width)
+			image.Z[y][x] = deepimage.ZPixel(z)
+			image.I[y][x] = deepimage.IPixel(i)
+			cx += 3.0 / float64(image.Resolution.Width)
 		}
-		cy += 3.0 / float64(height)
+		cy += 3.0 / float64(image.Resolution.Height)
 	}
 }
