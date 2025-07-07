@@ -61,7 +61,8 @@ func (s HTTPServer) settingsPageHandler(w http.ResponseWriter, r *http.Request) 
 func (s HTTPServer) staticImageHandler(w http.ResponseWriter, r *http.Request) {
 	imageName := r.URL.String()
 	fileName := strings.TrimPrefix(imageName, "/image/")
-	http.ServeFile(w, r, "web-content/images/"+fileName)
+	fullPath := "web-content/images/" + fileName
+	http.ServeFile(w, r, fullPath)
 }
 
 func (s HTTPServer) fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) {
@@ -84,7 +85,8 @@ func (s HTTPServer) Serve() {
 	http.HandleFunc("/new-fractal", s.newFractalPageHandler)
 	http.HandleFunc("/gallery", s.galleryPageHandler)
 	http.HandleFunc("/settings", s.settingsPageHandler)
-	http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
+	http.HandleFunc("/image/main/{type}", s.staticImageHandler)
+	//http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
 
 	//imageServer := http.FileServer(http.Dir("web-content/images/"))
 	//http.Handle("/image/", http.StripPrefix("/image", imageServer))
