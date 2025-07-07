@@ -15,6 +15,7 @@ package renderer
 import (
 	"image"
 
+	"github.com/tisnik/svitava-go/deepimage"
 	im "github.com/tisnik/svitava-go/image"
 	"github.com/tisnik/svitava-go/palettes"
 	"github.com/tisnik/svitava-go/params"
@@ -36,40 +37,23 @@ func NewSingleGoroutineRenderer() Renderer {
 	return SingleGoroutineRenderer{}
 }
 
-func complexImageToImage(zimage cplx.ZImage, width uint, height uint, palette palettes.Palette) image.Image {
-	image := image.NewNRGBA(image.Rect(0, 0, int(width), int(height)))
+type fractalFunction = func(params params.Cplx, deepImage deepimage.Image)
 
-	for y := 0; y < int(height); y++ {
-		offset := image.PixOffset(0, y)
-		for x := uint(0); x < width; x++ {
-			i := byte(zimage[y][x].Iter)
-			image.Pix[offset] = palette[i][0]
-			offset++
-			image.Pix[offset] = palette[i][1]
-			offset++
-			image.Pix[offset] = palette[i][2]
-			offset++
-			image.Pix[offset] = 0xff
-			offset++
-		}
-	}
-	return image
-}
-
-type fractalFunction = func(width uint, height uint, pcx float64, pcy float64, maxiter uint, zimage cplx.ZImage)
-type fractalFunction2 = func(width uint, height uint, params params.Cplx, zimage cplx.ZImage)
-
-func render(width uint, height uint, params params.Cplx, palette palettes.Palette, function fractalFunction2) image.Image {
-	zimage := cplx.NewZImage(width, height)
-	function(width, height, params, zimage)
-	return complexImageToImage(zimage, width, height, palette)
+func render(width uint, height uint, params params.Cplx, palette palettes.Palette, function fractalFunction) image.Image {
+	deepImage := deepimage.New(width, height)
+	function(params, deepImage)
+	deepImage.ApplyPalette(palette)
+	return deepImage.RGBA
 }
 
 func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image {
-	functions := map[string]fractalFunction2{}
+	functions := map[string]fractalFunction{}
+	// TODO: change to params.Type!!!
 	functions["Classic Mandelbrot set"] = cplx.CalcMandelbrotComplex
 	functions["Mandelbrot set z=z^3+c"] = cplx.CalcMandelbrotZ3
 	functions["Mandelbrot set z=z^4+c"] = cplx.CalcMandelbrotZ4
+	functions["Phoenix set, Mandelbrot variant"] = cplx.CalcPhoenixM
+	functions["Phoenix set, Julia variant"] = cplx.CalcPhoenixJ
 
 	return render(resolution.Width, resolution.Height, params, palette, functions[params.Name])
 }
