@@ -54,6 +54,8 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, 
 	functions["Mandelbrot set z=z^4+c"] = cplx.CalcMandelbrotZ4
 	functions["Phoenix set, Mandelbrot variant"] = cplx.CalcPhoenixM
 	functions["Phoenix set, Julia variant"] = cplx.CalcPhoenixJ
+	functions["Lambda, Mandelbrot variant"] = cplx.CalcMandelLambda
+	functions["Lambda, Julia variant"] = cplx.CalcLambda
 
 	return render(resolution.Width, resolution.Height, params, palette, functions[params.Name])
 }
