@@ -65,6 +65,13 @@ func (s HTTPServer) staticImageHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, fullPath)
 }
 
+func (s HTTPServer) staticIconHandler(w http.ResponseWriter, r *http.Request) {
+	iconName := r.URL.String()
+	fileName := strings.TrimPrefix(iconName, "/icons/")
+	fullPath := "web-content/icons/" + fileName
+	http.ServeFile(w, r, fullPath)
+}
+
 func (s HTTPServer) fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) {
 	resolution := image.Resolution{
 		Width:  128,
@@ -85,6 +92,7 @@ func (s HTTPServer) Serve() {
 	http.HandleFunc("/new-fractal", s.newFractalPageHandler)
 	http.HandleFunc("/gallery", s.galleryPageHandler)
 	http.HandleFunc("/settings", s.settingsPageHandler)
+	http.HandleFunc("/icons/{name}", s.staticIconHandler)
 	http.HandleFunc("/image/main/{type}", s.staticImageHandler)
 	//http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
 
