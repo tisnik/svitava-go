@@ -72,6 +72,10 @@ func (s HTTPServer) staticIconHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, fullPath)
 }
 
+func (s HTTPServer) styleSheetHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "web-content/svitava.css")
+}
+
 func (s HTTPServer) fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) {
 	resolution := image.Resolution{
 		Width:  128,
@@ -92,8 +96,10 @@ func (s HTTPServer) Serve() {
 	http.HandleFunc("/new-fractal", s.newFractalPageHandler)
 	http.HandleFunc("/gallery", s.galleryPageHandler)
 	http.HandleFunc("/settings", s.settingsPageHandler)
+	http.HandleFunc("/svitava.css", s.styleSheetHandler)
 	http.HandleFunc("/icons/{name}", s.staticIconHandler)
-	http.HandleFunc("/image/main/{type}", s.staticImageHandler)
+	http.HandleFunc("/image/new_fractal/{path}", s.staticImageHandler)
+	//http.HandleFunc("/image/main/{type}", s.staticImageHandler)
 	//http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
 
 	//imageServer := http.FileServer(http.Dir("web-content/images/"))
