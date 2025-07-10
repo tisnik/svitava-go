@@ -53,3 +53,10 @@ type = "lambda_j"
 cx0 = 0.85
 cy0 = 0.60
 maxiter = 1000
+
+[[complex_fractal]]
+name = "Manowar, Mandelbrot variant"
+type = "manowar_m"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
