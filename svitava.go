@@ -82,8 +82,8 @@ func main() {
 	} else {
 		log.Println("Starting renderer")
 		resolution := image.Resolution{
-			Width:  256,
-			Height: 256,
+			Width:  512,
+			Height: 512,
 		}
 
 		r := renderer.NewSingleGoroutineRenderer()
@@ -92,10 +92,18 @@ func main() {
 		fmt.Printf("%v\n%v\n", parameters, err)
 
 		var writer image.Writer
-
-		img := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=z^4+c"], palette)
 		writer = image.NewBMPImageWriter()
-		writer.WriteImage("mandelbrot.bmp", img)
+
+		//img := r.RenderComplexFractal(resolution, parameters["Phoenix set, Mandelbrot variant"], palette)
+		//writer.WriteImage("phoenix_m.bmp", img)
+
+		//img2 := r.RenderComplexFractal(resolution, parameters["Phoenix set, Julia variant"], palette)
+		//writer.WriteImage("phoenix_j.bmp", img2)
+
+		println("Rendering Manowar fractal")
+		img3 := r.RenderComplexFractal(resolution, parameters["Manowar, Mandelbrot variant"], palette)
+		writer.WriteImage("manowar.bmp", img3)
+		println("Done")
 
 		/*
 			writer = image.NewGIFImageWriter()
