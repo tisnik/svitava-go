@@ -40,6 +40,14 @@ func NewSingleGoroutineRenderer() Renderer {
 type fractalFunction = func(params params.Cplx, deepImage deepimage.Image)
 
 func render(width uint, height uint, params params.Cplx, palette palettes.Palette, function fractalFunction) image.Image {
+	if width == 0 || height == 0 {
+		// TODO: logging
+		return nil
+	}
+	if function == nil {
+		// TODO: logging
+		return nil
+	}
 	deepImage := deepimage.New(width, height)
 	function(params, deepImage)
 	deepImage.ApplyPalette(palette)
