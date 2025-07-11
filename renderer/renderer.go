@@ -66,7 +66,7 @@ func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, 
 	params := params.Cplx{
 		Cx0:     0,
 		Cy0:     0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcMandelbrotComplex)
 }
@@ -76,7 +76,7 @@ func RenderJuliaFractal(width uint, height uint, maxiter uint, palette palettes.
 	params := params.Cplx{
 		Cx0:     0.0,
 		Cy0:     1.0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcJulia)
 }
@@ -86,7 +86,7 @@ func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette pale
 	params := params.Cplx{
 		Cx0:     0.0,
 		Cy0:     1.0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcBarnsleyM1)
 }
@@ -96,7 +96,7 @@ func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette pale
 	params := params.Cplx{
 		Cx0:     0.0,
 		Cy0:     1.0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcBarnsleyM2)
 }
@@ -106,7 +106,7 @@ func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette pale
 	params := params.Cplx{
 		Cx0:     0.0,
 		Cy0:     1.0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcBarnsleyM3)
 }
@@ -116,7 +116,7 @@ func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette pale
 	params := params.Cplx{
 		Cx0:     0.48,
 		Cy0:     -1.32,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcBarnsleyJ1)
 }
@@ -126,7 +126,7 @@ func RenderBarnsleyFractalJ2(width uint, height uint, maxiter uint, palette pale
 	params := params.Cplx{
 		Cx0:     0.5,
 		Cy0:     1.2,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcBarnsleyJ2)
 }
@@ -136,7 +136,7 @@ func RenderBarnsleyFractalJ3(width uint, height uint, maxiter uint, palette pale
 	params := params.Cplx{
 		Cx0:     0.0,
 		Cy0:     0.0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcBarnsleyJ3)
 }
@@ -146,12 +146,12 @@ func RenderMagnetFractal(width uint, height uint, maxiter uint, palette palettes
 	/*params := params.Cplx{
 		Cx0:     1.1,
 		Cy0:     1.1,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}*/
 	params := params.Cplx{
 		Cx0:     0.0,
 		Cy0:     0.0,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcMagnet)
 }
@@ -161,7 +161,7 @@ func RenderMagnetJuliaFractal(width uint, height uint, maxiter uint, palette pal
 	params := params.Cplx{
 		Cx0:     0.5,
 		Cy0:     -1.5,
-		Maxiter: 1000,
+		Maxiter: maxiter,
 	}
 	return render(width, height, params, palette, cplx.CalcMagnetJulia)
 }
