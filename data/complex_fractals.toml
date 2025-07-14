@@ -20,6 +20,19 @@ cy0 = 0.0
 maxiter = 1000
 
 [[complex_fractal]]
+name = "Mandelbrot set z=z^2-z+c"
+type = "mandelbrot_z2mz"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+
+[[complex_fractal]]
+name = "Manowar, Julia variant"
+type = "manowar_j"
+cx0 = 0.0542
+cy0 = -0.045
+maxiter = 1000
+[[complex_fractal]]
 name = "Classic Julia set"
 type = "julia"
 cx0 = 0.0
@@ -60,3 +73,12 @@ type = "manowar_m"
 cx0 = 0.0
 cy0 = 0.0
 maxiter = 1000
+
+[[complex_fractal]]
+name = "Manowar, Julia variant"
+type = "manowar_j"
+cx0 = 0.0542
+cy0 = -0.045
+maxiter = 1000
+
+
