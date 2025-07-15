@@ -24,15 +24,18 @@ import (
 //
 // None: currently, only fractals in complex plane are supported
 type Cplx struct {
-	Name    string  `toml:"name"`
-	Type    string  `toml:"type"`
-	Cx0     float64 `toml:"cx0"`
-	Cy0     float64 `toml:"cy0"`
-	Maxiter uint    `toml:"maxiter"`
-	Xmin    float64 `toml:"xmin"`
-	Ymin    float64 `toml:"ymin"`
-	Xmax    float64 `toml:"xmax"`
-	Ymax    float64 `toml:"ymax"`
+	Name      string  `toml:"name"`
+	Type      string  `toml:"type"`
+	Cx0       float64 `toml:"cx0"`
+	Cy0       float64 `toml:"cy0"`
+	Maxiter   uint    `toml:"maxiter"`
+	Bailout   uint    `toml:"bailout"`
+	Function1 string  `toml:"function1"`
+	Function2 string  `toml:"function2"`
+	Xmin      float64 `toml:"xmin"`
+	Ymin      float64 `toml:"ymin"`
+	Xmax      float64 `toml:"xmax"`
+	Ymax      float64 `toml:"ymax"`
 }
 
 // Sequence of fractal parameters
