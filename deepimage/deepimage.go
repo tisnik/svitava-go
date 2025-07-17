@@ -1,3 +1,15 @@
+//
+//  (C) Copyright 2024  Pavel Tisnovsky
+//
+//  All rights reserved. This program and the accompanying materials
+//  are made available under the terms of the Eclipse Public License v1.0
+//  which accompanies this distribution, and is available at
+//  http://www.eclipse.org/legal/epl-v10.html
+//
+//  Contributors:
+//      Pavel Tisnovsky
+//
+
 package deepimage
 
 import (
@@ -18,7 +30,7 @@ func New(width uint, height uint) Image {
 	resolution := NewResolution(width, height)
 
 	return Image{
-		Resolution: NewResolution(width, height),
+		Resolution: resolution,
 		Z:          NewZImage(resolution),
 		R:          NewRImage(resolution),
 		I:          NewIImage(resolution),
