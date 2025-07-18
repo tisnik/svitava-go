@@ -56,6 +56,11 @@ type = "mandelbrot"
 cx0 = 0.0
 cy0 = 0.0
 maxiter = 1000
+bailout = 4
+xmin = -2.0
+xmax = 1.0
+ymin = -1.5
+ymax = 1.5
 
 [[complex_fractal]]
 name = "Mandelbrot set z=z^3+c"
