@@ -1,5 +1,5 @@
 //
-//  (C) Copyright 2024  Pavel Tisnovsky
+//  (C) Copyright 2024, 2025  Pavel Tisnovsky
 //
 //  All rights reserved. This program and the accompanying materials
 //  are made available under the terms of the Eclipse Public License v1.0
@@ -22,9 +22,11 @@ func CalcMandelbrot(
 	params params.Cplx,
 	image deepimage.Image) {
 
-	var cy float64 = -1.5
+	stepX, stepY := getSteps(params, image)
+
+	var cy float64 = params.Ymin
 	for y := uint(0); y < image.Resolution.Height; y++ {
-		var cx float64 = -2.0
+		var cx float64 = params.Xmin
 		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = params.Cx0
 			var zy float64 = params.Cy0
@@ -41,9 +43,9 @@ func CalcMandelbrot(
 			}
 			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
 			image.I[y][x] = deepimage.IPixel(i)
-			cx += 3.0 / float64(image.Resolution.Width)
+			cx += stepX
 		}
-		cy += 3.0 / float64(image.Resolution.Height)
+		cy += stepY
 	}
 }
 
