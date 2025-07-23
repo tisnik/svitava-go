@@ -16,6 +16,11 @@ type = "julia"
 cx0 = 0.0
 cy0 = 1.0
 maxiter = 1000
+bailout = 4
+xmin = -2.0
+xmax = 2.0
+ymin = -2.0
+ymax = 2.0
 
 [[complex_fractal]]
 name = "Mandelbrot set z=z^3+c"
@@ -44,6 +49,11 @@ type = "phoenix_m"
 cx0 = 0.0
 cy0 = 0.0
 maxiter = 1000
+bailout = 4
+xmin = -2.0
+xmax = 2.0
+ymin = -2.0
+ymax = 2.0
 
 [[complex_fractal]]
 name = "Phoenix set, Julia variant"
@@ -51,6 +61,11 @@ type = "phoenix_j"
 cx0 = 0.0
 cy0 = 1.0
 maxiter = 1000
+bailout = 4
+xmin = -2.0
+xmax = 2.0
+ymin = -2.0
+ymax = 2.0
 
 [[complex_fractal]]
 name = "Lambda, Mandelbrot variant"
@@ -72,6 +87,11 @@ type = "manowar_m"
 cx0 = 0.0
 cy0 = 0.0
 maxiter = 1000
+bailout = 4
+xmin = -1.5
+xmax = 0.5
+ymin = -1.0
+ymax = 1.0
 
 [[complex_fractal]]
 name = "Manowar, Julia variant"
@@ -79,6 +99,11 @@ type = "manowar_j"
 cx0 = 0.0542
 cy0 = -0.045
 maxiter = 1000
+bailout = 4
+xmin = -1.5
+xmax = 0.5
+ymin = -1.0
+ymax = 1.0
 
 
 
