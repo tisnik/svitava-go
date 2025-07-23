@@ -56,16 +56,19 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 
 func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image {
 	functions := map[string]fractalFunction{
-		"Classic Mandelbrot set":          cplx.CalcMandelbrotComplex,
-		"Mandelbrot set z=z^3+c":          cplx.CalcMandelbrotZ3,
-		"Mandelbrot set z=z^4+c":          cplx.CalcMandelbrotZ4,
-		"Mandelbrot set z=z^2-z+c":        cplx.CalcMandelbrotZ2mZ,
-		"Phoenix set, Mandelbrot variant": cplx.CalcPhoenixM,
-		"Phoenix set, Julia variant":      cplx.CalcPhoenixJ,
-		"Lambda, Mandelbrot variant":      cplx.CalcMandelLambda,
-		"Lambda, Julia variant":           cplx.CalcLambda,
-		"Manowar, Mandelbrot variant":     cplx.CalcManowarM,
-		"Manowar, Julia variant":          cplx.CalcManowarJ,
+		"Classic Mandelbrot set":             cplx.CalcMandelbrotComplex,
+		"Classic Julia set":                  cplx.CalcJulia,
+		"Mandelbrot set z=z^3+c":             cplx.CalcMandelbrotZ3,
+		"Mandelbrot set z=z^4+c":             cplx.CalcMandelbrotZ4,
+		"Mandelbrot set z=z^2-z+c":           cplx.CalcMandelbrotZ2mZ,
+		"Barnsley set 1, Mandelbrot variant": cplx.CalcBarnsleyM1,
+		"Barnsley set 1, Julia variant":      cplx.CalcBarnsleyJ1,
+		"Phoenix set, Mandelbrot variant":    cplx.CalcPhoenixM,
+		"Phoenix set, Julia variant":         cplx.CalcPhoenixJ,
+		"Lambda, Mandelbrot variant":         cplx.CalcMandelLambda,
+		"Lambda, Julia variant":              cplx.CalcLambda,
+		"Manowar, Mandelbrot variant":        cplx.CalcManowarM,
+		"Manowar, Julia variant":             cplx.CalcManowarJ,
 	}
 
 	function, exists := functions[params.Name]
