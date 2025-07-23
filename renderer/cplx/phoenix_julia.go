@@ -22,11 +22,14 @@ func CalcPhoenixJ(
 	params params.Cplx,
 	image deepimage.Image) {
 
+	stepX, stepY := getSteps(params, image)
+
 	cx := params.Cx0
 	cy := params.Cy0
-	var zy0 float64 = -2.0
+
+	var zy0 float64 = params.Ymin
 	for y := uint(0); y < image.Resolution.Height; y++ {
-		var zx0 float64 = -2.0
+		var zx0 float64 = params.Xmin
 		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = zx0
 			var zy float64 = zy0
@@ -49,8 +52,8 @@ func CalcPhoenixJ(
 			}
 			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
 			image.I[y][x] = deepimage.IPixel(i)
-			zx0 += 4.0 / float64(image.Resolution.Width)
+			zx0 += stepX
 		}
-		zy0 += 4.0 / float64(image.Resolution.Height)
+		zy0 += stepY
 	}
 }
