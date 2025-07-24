@@ -34,7 +34,7 @@ func CalcMandelbrot(
 			for i < params.Maxiter {
 				zx2 := zx * zx
 				zy2 := zy * zy
-				if zx2+zy2 > 4.0 {
+				if zx2+zy2 > float64(params.Bailout) {
 					break
 				}
 				zy = 2.0*zx*zy + cy
