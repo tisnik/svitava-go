@@ -87,9 +87,11 @@ func CalcMandelbrotZ3(
 	params params.Cplx,
 	image deepimage.Image) {
 
-	var cy float64 = -1.5
+	stepX, stepY := getSteps(params, image)
+
+	var cy float64 = params.Ymin
 	for y := uint(0); y < image.Resolution.Height; y++ {
-		var cx float64 = -1.5
+		var cx float64 = params.Xmin
 		for x := uint(0); x < image.Resolution.Width; x++ {
 			var c complex128 = complex(cx, cy)
 			var z complex128 = complex(params.Cx0, params.Cy0)
@@ -105,9 +107,9 @@ func CalcMandelbrotZ3(
 			}
 			image.Z[y][x] = deepimage.ZPixel(z)
 			image.I[y][x] = deepimage.IPixel(i)
-			cx += 3.0 / float64(image.Resolution.Width)
+			cx += stepX
 		}
-		cy += 3.0 / float64(image.Resolution.Height)
+		cy += stepY
 	}
 }
 
