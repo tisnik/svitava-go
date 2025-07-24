@@ -22,9 +22,11 @@ func CalcMandelLambda(
 	params params.Cplx,
 	image deepimage.Image) {
 
-	var cy float64 = -2.5
+	stepX, stepY := getSteps(params, image)
+
+	var cy float64 = params.Ymin
 	for y := uint(0); y < image.Resolution.Height; y++ {
-		var cx float64 = -2.0
+		var cx float64 = params.Xmin
 		for x := uint(0); x < image.Resolution.Width; x++ {
 			var c complex128 = complex(cx, cy)
 			var z complex128 = complex(params.Cx0, params.Cy0)
@@ -40,8 +42,8 @@ func CalcMandelLambda(
 			}
 			image.Z[y][x] = deepimage.ZPixel(z)
 			image.I[y][x] = deepimage.IPixel(i)
-			cx += 6.0 / float64(image.Resolution.Width)
+			cx += stepX
 		}
-		cy += 5.0 / float64(image.Resolution.Height)
+		cy += stepY
 	}
 }
