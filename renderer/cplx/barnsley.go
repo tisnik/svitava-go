@@ -36,7 +36,7 @@ func CalcBarnsleyM1(
 				var zyn float64
 				zx2 := zx * zx
 				zy2 := zy * zy
-				if zx2+zy2 > 4.0 {
+				if zx2+zy2 > float64(params.Bailout) {
 					break
 				}
 				if zx >= 0 {
@@ -75,7 +75,7 @@ func CalcBarnsleyM2(
 				var zyn float64
 				zx2 := zx * zx
 				zy2 := zy * zy
-				if zx2+zy2 > 4.0 {
+				if zx2+zy2 > float64(params.Bailout) {
 					break
 				}
 				if zx*cy+zy*cx >= 0 {
@@ -114,7 +114,7 @@ func CalcBarnsleyM3(
 				var zyn float64
 				zx2 := zx * zx
 				zy2 := zy * zy
-				if zx2+zy2 > 4.0 {
+				if zx2+zy2 > float64(params.Bailout) {
 					break
 				}
 				if zx > 0 {
