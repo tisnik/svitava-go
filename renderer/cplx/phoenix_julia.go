@@ -41,7 +41,7 @@ func CalcPhoenixJ(
 				zy2 := zy * zy
 				zxn := zx2 - zy2 + cx + cy*ynx
 				zyn := 2.0*zx*zy + cy*yny
-				if zx2+zy2 > 4.0 {
+				if zx2+zy2 > float64(params.Bailout) {
 					break
 				}
 				ynx = zx
