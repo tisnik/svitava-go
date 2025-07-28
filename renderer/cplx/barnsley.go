@@ -63,9 +63,11 @@ func CalcBarnsleyM2(
 	params params.Cplx,
 	image deepimage.Image) {
 
-	var cy float64 = -2.0
+	stepX, stepY := getSteps(params, image)
+
+	var cy float64 = params.Ymin
 	for y := uint(0); y < image.Resolution.Height; y++ {
-		var cx float64 = -2.0
+		var cx float64 = params.Xmin
 		for x := uint(0); x < image.Resolution.Width; x++ {
 			var zx float64 = cx
 			var zy float64 = cy
@@ -91,9 +93,9 @@ func CalcBarnsleyM2(
 			}
 			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
 			image.I[y][x] = deepimage.IPixel(i)
-			cx += 4.0 / float64(image.Resolution.Width)
+			cx += stepX
 		}
-		cy += 4.0 / float64(image.Resolution.Height)
+		cy += stepY
 	}
 }
 
