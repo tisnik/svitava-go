@@ -32,9 +32,6 @@ const (
 )
 
 func main() {
-	palette, err := palettes.LoadTextRGBPalette("data/mandmap.map")
-	fmt.Printf("%v\n%v", palette, err)
-
 	var width uint
 	var height uint
 	var aa bool
@@ -42,6 +39,7 @@ func main() {
 	var startTUI bool
 	var execute string
 	var port uint
+	var demoMode bool
 
 	configuration, err := configuration.LoadConfiguration(CONFIG_FILE_NAME)
 	if err != nil {
@@ -72,6 +70,9 @@ func main() {
 	flag.UintVar(&port, "p", 8080, "port for the server (shorthand)")
 	flag.UintVar(&port, "port", 8080, "port for the server")
 
+	flag.BoolVar(&demoMode, "d", false, "start in demo mode (render all fractals)")
+	flag.BoolVar(&demoMode, "demo", false, "start in demo mode (render all fractals)")
+
 	flag.Parse()
 
 	if startServer {
@@ -79,8 +80,15 @@ func main() {
 		r := renderer.NewSingleGoroutineRenderer()
 		server := server.NewHTTPServer(port, r)
 		server.Serve()
-	} else {
-		log.Println("Starting renderer")
+		return
+	}
+
+	if demoMode {
+		log.Println("Starting demo mode: render all fractals available")
+
+		palette, err := palettes.LoadTextRGBPalette("data/mandmap.map")
+		log.Println("Color palette loaded")
+
 		resolution := image.Resolution{
 			Width:  512,
 			Height: 512,
@@ -89,69 +97,32 @@ func main() {
 		r := renderer.NewSingleGoroutineRenderer()
 
 		parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
-		fmt.Printf("%v\n%v\n", parameters, err)
+		log.Printf("Fractal configuration:  %v  %v", parameters, err)
 
 		var writer image.Writer
 		writer = image.NewBMPImageWriter()
+		log.Println("BMP image writer initialized")
 
-		//img := r.RenderComplexFractal(resolution, parameters["Phoenix set, Mandelbrot variant"], palette)
-		//writer.WriteImage("phoenix_m.bmp", img)
+		fractals := []string{
+			"Classic Mandelbrot set",
+			"Classic Julia set",
+			"Mandelbrot set z=z^3+c",
+			"Mandelbrot set z=z^4+c",
+			"Mandelbrot set z=z^2-z+c",
+			"Phoenix set, Mandelbrot variant",
+			"Phoenix set, Julia variant",
+			"Lambda, Mandelbrot variant",
+			"Lambda, Julia variant",
+			"Manowar, Mandelbrot variant",
+			"Manowar, Julia variant",
+		}
 
-		//img2 := r.RenderComplexFractal(resolution, parameters["Phoenix set, Julia variant"], palette)
-		//writer.WriteImage("phoenix_j.bmp", img2)
-
-		println("Rendering Manowar fractal")
-		img3 := r.RenderComplexFractal(resolution, parameters["Manowar, Mandelbrot variant"], palette)
-		writer.WriteImage("manowar.bmp", img3)
-		println("Done")
-
-		/*
-			writer = image.NewGIFImageWriter()
-			writer.WriteImage("mandelbrot.gif", img)
-
-			writer = image.NewJPEGImageWriter()
-			writer.WriteImage("mandelbrot.jpg", img)
-
-			writer = image.NewPNGImageWriter()
-			writer.WriteImage("mandelbrot.png", img)
-
-			writer = image.NewPPMImageWriter()
-			writer.WriteImage("mandelbrot.ppm", img)
-
-			writer = image.NewTGAImageWriter()
-			writer.WriteImage("mandelbrot.tga", img)
-		*/
-		/*
-
-			img = renderer.RenderBarnsleyFractalM1(width, height, 255, palette)
-			image.WritePNGImage("barnsley_m1.png", img)
-
-			img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette)
-			image.WritePNGImage("barnsley_j1.png", img)
-
-			img = renderer.RenderBarnsleyFractalM2(width, height, 255, palette)
-			image.WritePNGImage("barnsley_m2.png", img)
-
-			img = renderer.RenderBarnsleyFractalJ2(width, height, 255, palette)
-			image.WritePNGImage("barnsley_j2.png", img)
-
-			img = renderer.RenderBarnsleyFractalM3(width, height, 255, palette)
-			image.WritePNGImage("barnsley_m3.png", img)
-
-			img = renderer.RenderBarnsleyFractalJ3(width, height, 255, palette)
-			image.WritePNGImage("barnsley_j3.png", img)
-
-			img2 := renderer.RenderJuliaFractal(width, height, 255, palette)
-			image.WritePNGImage("julia.png", img2)
-
-			img2 = renderer.RenderMagnetFractal(width, height, 255, palette)
-			image.WritePNGImage("magnet.png", img2)
-
-			img2 = renderer.RenderMagnetJuliaFractal(width, height, 255, palette)
-			image.WritePNGImage("magnet_julia.png", img2)
-			//img = renderer.RenderBarnsleyFractalJ1(width, height, 255, palette)
-			//image.WritePNGImage("barnsley_j1.png", img)
-		*/
+		for _, fractal := range fractals {
+			log.Println("Rendering", fractal, "started")
+			img := r.RenderComplexFractal(resolution, parameters[fractal], palette)
+			writer.WriteImage(fractal+".bmp", img)
+			log.Println("Rendering", fractal, "finished")
+		}
 	}
 
 }
