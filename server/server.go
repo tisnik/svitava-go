@@ -65,6 +65,10 @@ func (s HTTPServer) staticImageHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, fullPath)
 }
 
+func (s HTTPServer) mandelbrotPageHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "web-content/mandelbrot.html")
+}
+
 func (s HTTPServer) staticIconHandler(w http.ResponseWriter, r *http.Request) {
 	iconName := r.URL.String()
 	fileName := strings.TrimPrefix(iconName, "/icons/")
@@ -99,6 +103,7 @@ func (s HTTPServer) Serve() {
 	http.HandleFunc("/svitava.css", s.styleSheetHandler)
 	http.HandleFunc("/icons/{name}", s.staticIconHandler)
 	http.HandleFunc("/image/new_fractal/{path}", s.staticImageHandler)
+	http.HandleFunc("/mandelbrot", s.mandelbrotPageHandler)
 	//http.HandleFunc("/image/main/{type}", s.staticImageHandler)
 	//http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
 
