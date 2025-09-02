@@ -14,6 +14,7 @@ package params
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"os"
 
@@ -63,6 +64,11 @@ func LoadCplxParameters(filename string) (map[string]Cplx, error) {
 		return asMap, err
 	}
 	for _, parameter := range parameters.Parameters {
+		if _, exists := asMap[parameter.Name]; exists {
+			return asMap, fmt.Errorf(
+				"duplicate parameter name %q in %s",
+				parameter.Name, filename)
+		}
 		asMap[parameter.Name] = parameter
 	}
 	return asMap, nil
