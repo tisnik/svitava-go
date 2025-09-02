@@ -40,7 +40,7 @@ type LoggingConfiguration struct {
 // Fractal rendering configuration
 type RenderingConfiguration struct {
 	ImageFormat string `toml:"image_format"`
-	BinaryPPM   bool   `toml:"binary_bpm"`
+	BinaryPPM   bool   `toml:"binary_ppm"`
 }
 
 // LoadConfiguration function reads configuration stored in TOML format
