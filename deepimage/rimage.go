@@ -18,8 +18,8 @@ type RImage [][]RPixel
 // NewRImage constructs new instance of RImage
 func NewRImage(resolution Resolution) RImage {
 	rimage := make([][]RPixel, resolution.Height)
-	for i := uint(0); i < resolution.Height; i++ {
-		rimage[i] = make([]RPixel, resolution.Width)
+	for y := uint(0); y < resolution.Height; y++ {
+		rimage[y] = make([]RPixel, resolution.Width)
 	}
 	return rimage
 }
