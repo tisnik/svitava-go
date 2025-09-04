@@ -18,8 +18,8 @@ type ZImage [][]ZPixel
 // NewZImage constructs new instance of ZImage
 func NewZImage(resolution Resolution) ZImage {
 	zimage := make([][]ZPixel, resolution.Height)
-	for i := uint(0); i < resolution.Height; i++ {
-		zimage[i] = make([]ZPixel, resolution.Width)
+	for y := uint(0); y < resolution.Height; y++ {
+		zimage[y] = make([]ZPixel, resolution.Width)
 	}
 	return zimage
 }
