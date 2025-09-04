@@ -26,15 +26,19 @@ type Image struct {
 	RGBA       *image.NRGBA
 }
 
-func New(width uint, height uint) Image {
-	resolution := NewResolution(width, height)
+func New(width uint, height uint) (Image, error) {
+	resolution, err := NewResolution(width, height)
+
+	if err != nil {
+		return Image{}, err
+	}
 
 	return Image{
 		Resolution: resolution,
 		Z:          NewZImage(resolution),
 		R:          NewRImage(resolution),
 		I:          NewIImage(resolution),
-	}
+	}, nil
 }
 
 func (i *Image) ApplyPalette(palette palettes.Palette) {
