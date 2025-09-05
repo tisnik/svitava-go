@@ -48,7 +48,11 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 		// TODO: logging
 		return nil
 	}
-	deepImage := deepimage.New(width, height)
+	deepImage, err := deepimage.New(width, height)
+	if err != nil {
+		// TODO: logging
+		return nil
+	}
 	function(params, deepImage)
 	deepImage.ApplyPalette(palette)
 	return deepImage.RGBA
@@ -60,13 +64,17 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, 
 		"Classic Julia set":                  cplx.CalcJulia,
 		"Mandelbrot set z=z^3+c":             cplx.CalcMandelbrotZ3,
 		"Mandelbrot set z=z^4+c":             cplx.CalcMandelbrotZ4,
+		"Mandelbrot set z=z^2+z+c":           cplx.CalcMandelbrotZ2pZ,
 		"Mandelbrot set z=z^2-z+c":           cplx.CalcMandelbrotZ2mZ,
-		"Barnsley set 1, Mandelbrot variant": cplx.CalcBarnsleyM1,
-		"Barnsley set 1, Julia variant":      cplx.CalcBarnsleyJ1,
-		"Barnsley set 2, Mandelbrot variant": cplx.CalcBarnsleyM2,
-		"Barnsley set 2, Julia variant":      cplx.CalcBarnsleyJ2,
-		"Barnsley set 3, Mandelbrot variant": cplx.CalcBarnsleyM3,
-		"Barnsley set 3, Julia variant":      cplx.CalcBarnsleyJ3,
+		"Mandelbrot set z=sin(z)*c":          cplx.CalcMandelbrotFn,
+		"Julia set z=z^3+c":                  cplx.CalcJuliaZ3,
+		"Julia set z=sin(z)*c":               cplx.CalcJuliaFn,
+		"Barnsley set 1, Mandelbrot variant": cplx.CalcBarnsleyMandelbrotM1,
+		"Barnsley set 1, Julia variant":      cplx.CalcBarnsleyJuliaJ1,
+		"Barnsley set 2, Mandelbrot variant": cplx.CalcBarnsleyMandelbrotM2,
+		"Barnsley set 2, Julia variant":      cplx.CalcBarnsleyJuliaJ2,
+		"Barnsley set 3, Mandelbrot variant": cplx.CalcBarnsleyMandelbrotM3,
+		"Barnsley set 3, Julia variant":      cplx.CalcBarnsleyJuliaJ3,
 		"Phoenix set, Mandelbrot variant":    cplx.CalcPhoenixM,
 		"Phoenix set, Julia variant":         cplx.CalcPhoenixJ,
 		"Lambda, Mandelbrot variant":         cplx.CalcMandelLambda,
@@ -111,7 +119,7 @@ func RenderBarnsleyFractalM1(width uint, height uint, maxiter uint, palette pale
 		Cy0:     1.0,
 		Maxiter: maxiter,
 	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyM1)
+	return render(width, height, params, palette, cplx.CalcBarnsleyMandelbrotM1)
 }
 
 // RenderBarnsleyFractalM2 renders a classic Barnsley fractal M2 into provided Image.
@@ -121,7 +129,7 @@ func RenderBarnsleyFractalM2(width uint, height uint, maxiter uint, palette pale
 		Cy0:     1.0,
 		Maxiter: maxiter,
 	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyM2)
+	return render(width, height, params, palette, cplx.CalcBarnsleyMandelbrotM2)
 }
 
 // RenderBarnsleyFractalM3 renders a classic Barnsley fractal M3 into provided Image.
@@ -131,7 +139,7 @@ func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette pale
 		Cy0:     1.0,
 		Maxiter: maxiter,
 	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyM3)
+	return render(width, height, params, palette, cplx.CalcBarnsleyMandelbrotM3)
 }
 
 // RenderBarnsleyFractalJ1 renders a classic Barnsley fractal J1 into provided Image.
@@ -141,7 +149,7 @@ func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette pale
 		Cy0:     -1.32,
 		Maxiter: maxiter,
 	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyJ1)
+	return render(width, height, params, palette, cplx.CalcBarnsleyJuliaJ1)
 }
 
 // RenderBarnsleyFractalJ2 renders a classic Barnsley fractal J2 into provided Image.
@@ -151,7 +159,7 @@ func RenderBarnsleyFractalJ2(width uint, height uint, maxiter uint, palette pale
 		Cy0:     1.2,
 		Maxiter: maxiter,
 	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyJ2)
+	return render(width, height, params, palette, cplx.CalcBarnsleyJuliaJ2)
 }
 
 // RenderBarnsleyFractalJ3 renders a classic Barnsley fractal J3 into provided Image.
@@ -161,7 +169,7 @@ func RenderBarnsleyFractalJ3(width uint, height uint, maxiter uint, palette pale
 		Cy0:     0.0,
 		Maxiter: maxiter,
 	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyJ3)
+	return render(width, height, params, palette, cplx.CalcBarnsleyJuliaJ3)
 }
 
 // RenderMagnet renders a classic Magnet fractal into provided Image.
