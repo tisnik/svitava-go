@@ -10,6 +10,8 @@ default: build
 
 clean: ## Run go clean
 	@go clean
+	# cleanup raster images
+	rm *.bmp
 
 build:	${OUTDIR}/${BINARY} ## Build binary containing service executable
 
