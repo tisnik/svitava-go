@@ -17,8 +17,8 @@ import (
 	"github.com/tisnik/svitava-go/params"
 )
 
-// CalcBarnsleyJ1 calculates Barnsley J1 Mandelbrot-like set
-func CalcBarnsleyJ1(
+// CalcBarnsleyJuliaJ1 calculates Barnsley J1 Mandelbrot-like set
+func CalcBarnsleyJuliaJ1(
 	params params.Cplx,
 	image deepimage.Image) {
 
@@ -60,8 +60,8 @@ func CalcBarnsleyJ1(
 	}
 }
 
-// CalcBarnsleyJ2 calculates Barnsley J2 Mandelbrot-like set
-func CalcBarnsleyJ2(
+// CalcBarnsleyJuliaJ2 calculates Barnsley J2 Mandelbrot-like set
+func CalcBarnsleyJuliaJ2(
 	params params.Cplx,
 	image deepimage.Image) {
 
@@ -103,8 +103,8 @@ func CalcBarnsleyJ2(
 	}
 }
 
-// CalcBarnsleyJ3 calculates Barnsley J3 Mandelbrot-like set
-func CalcBarnsleyJ3(
+// CalcBarnsleyJuliaJ3 calculates Barnsley J3 Mandelbrot-like set
+func CalcBarnsleyJuliaJ3(
 	params params.Cplx,
 	image deepimage.Image) {
 
