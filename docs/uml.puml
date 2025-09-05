@@ -96,6 +96,10 @@ namespace image {
         + WriteImage(filename string, img image.Image) error
 
     }
+    interface Reader  {
+        + ReadImage(filename string) (image.Image, error)
+
+    }
     class Resolution << (S,Aquamarine) >> {
         + Width uint
         + Height uint
