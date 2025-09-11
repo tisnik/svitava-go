@@ -48,34 +48,3 @@ func CalcJulia(
 		zy0 += stepY
 	}
 }
-
-// CalcJulia calculates Julia fractal for Z=Z^3+c
-func CalcJuliaZ3(
-	params params.Cplx,
-	image deepimage.Image) {
-
-	stepX, stepY := getSteps(params, image)
-
-	var zy0 float64 = params.Ymin
-	for y := uint(0); y < image.Resolution.Height; y++ {
-		var zx0 float64 = params.Xmin
-		for x := uint(0); x < image.Resolution.Width; x++ {
-			var c complex128 = complex(params.Cx0, params.Cy0)
-			var z complex128 = complex(zx0, zy0)
-			var i uint
-			for i < params.Maxiter {
-				zx := real(z)
-				zy := imag(z)
-				if zx*zx+zy*zy > 4.0 {
-					break
-				}
-				z = z*z*z + c
-				i++
-			}
-			image.Z[y][x] = deepimage.ZPixel(z)
-			image.I[y][x] = deepimage.IPixel(i)
-			zx0 += stepX
-		}
-		zy0 += stepY
-	}
-}
