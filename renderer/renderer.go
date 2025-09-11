@@ -68,6 +68,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, 
 		"Mandelbrot set z=z^2-z+c":           cplx.CalcMandelbrotZ2mZ,
 		"Mandelbrot set z=sin(z)*c":          cplx.CalcMandelbrotFn,
 		"Julia set z=z^3+c":                  cplx.CalcJuliaZ3,
+		"Julia set z=z^4+c":                  cplx.CalcJuliaZ4,
 		"Julia set z=sin(z)*c":               cplx.CalcJuliaFn,
 		"Barnsley set 1, Mandelbrot variant": cplx.CalcBarnsleyMandelbrotM1,
 		"Barnsley set 1, Julia variant":      cplx.CalcBarnsleyJuliaJ1,
@@ -81,6 +82,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, 
 		"Lambda, Julia variant":              cplx.CalcLambda,
 		"Manowar, Mandelbrot variant":        cplx.CalcManowarM,
 		"Manowar, Julia variant":             cplx.CalcManowarJ,
+		"Mandelbrot, Z power":                cplx.CalcZPowerMandelbrot,
 	}
 
 	function, exists := functions[params.Name]
