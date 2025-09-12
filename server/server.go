@@ -13,6 +13,7 @@
 package server
 
 import (
+	"fmt"
 	"image/png"
 	"log"
 	"net/http"
@@ -84,15 +85,45 @@ func (s HTTPServer) styleSheetHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "web-content/svitava.css")
 }
 
-func (s HTTPServer) fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) {
-	resolution := image.Resolution{
-		Width:  128,
-		Height: 128,
+func (s HTTPServer) fractalImageHandler(w http.ResponseWriter, r *http.Request) {
+	fractalName, err := parseStringQueryParameter(r, "fractal", "Classic Mandelbrot set")
+	if err != nil {
+		http.Error(w, "invalid 'fractal' parameter provided", http.StatusBadRequest)
+		return
 	}
-	palette, _ := palettes.LoadTextRGBPalette("data/mandmap.map")
-	parameters, _ := params.LoadCplxParameters("data/complex_fractals.toml")
-	img := s.renderer.RenderComplexFractal(resolution, parameters["Classic Mandelbrot set"], palette)
-	png.Encode(w, img)
+
+	paletteName, err := parseStringQueryParameter(r, "palette", "mandmap")
+	if err != nil {
+		http.Error(w, "invalid 'palette' parameter provided", http.StatusBadRequest)
+		return
+	}
+
+	width, err := parseUintQueryParameter(r, "width", 128)
+	if err != nil {
+		http.Error(w, "invalid 'width' parameter provided", http.StatusBadRequest)
+		return
+	}
+
+	height, err := parseUintQueryParameter(r, "height", 128)
+	if err != nil {
+		http.Error(w, "invalid 'height' parameter provided", http.StatusBadRequest)
+		return
+	}
+
+	resolution := image.Resolution{
+		Width:  uint(width),
+		Height: uint(height),
+	}
+	fmt.Println(fractalName, paletteName, resolution)
+	palette, _ := palettes.LoadTextRGBPalette("data/" + paletteName + ".map")
+	parametersMap, _ := params.LoadCplxParameters("data/complex_fractals.toml")
+
+	if parameters, found := parametersMap[fractalName]; found {
+		img := s.renderer.RenderComplexFractal(resolution, parameters, palette)
+		png.Encode(w, img)
+		return
+	}
+	http.Error(w, "fractal now found", http.StatusBadRequest)
 }
 
 // Serve method starts HTTP server that provides all static and dynamic data
@@ -110,7 +141,7 @@ func (s HTTPServer) Serve() {
 	http.HandleFunc("/mandelbrot", s.mandelbrotPageHandler)
 	http.HandleFunc("/complex", s.complexFractalsPageHandler)
 	//http.HandleFunc("/image/main/{type}", s.staticImageHandler)
-	//http.HandleFunc("/image/main/{type}", s.fractalTypeImageHandler)
+	http.HandleFunc("/render", s.fractalImageHandler)
 
 	//imageServer := http.FileServer(http.Dir("web-content/images/"))
 	//http.Handle("/image/", http.StripPrefix("/image", imageServer))
