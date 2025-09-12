@@ -21,6 +21,12 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+type Palette struct {
+	Name  string `toml:"name"`
+	Shift int    `toml:"shift"`
+	Slope int    `toml:"slope"`
+}
+
 // Cplx structure contains information about all fractal parameters.
 //
 // None: currently, only fractals in complex plane are supported
@@ -29,6 +35,7 @@ type Cplx struct {
 	Type      string  `toml:"type"`
 	Cx0       float64 `toml:"cx0"`
 	Cy0       float64 `toml:"cy0"`
+	Palette   Palette `toml:"palette"`
 	Maxiter   uint    `toml:"maxiter"`
 	Bailout   uint    `toml:"bailout"`
 	Function1 string  `toml:"function1"`
@@ -68,6 +75,9 @@ func LoadCplxParameters(filename string) (map[string]Cplx, error) {
 			return asMap, fmt.Errorf(
 				"duplicate parameter name %q in %s",
 				parameter.Name, filename)
+		}
+		if parameter.Palette.Name == "" {
+			parameter.Palette.Slope = 1
 		}
 		asMap[parameter.Name] = parameter
 	}
