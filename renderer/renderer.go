@@ -20,6 +20,7 @@ import (
 	"github.com/tisnik/svitava-go/palettes"
 	"github.com/tisnik/svitava-go/params"
 	"github.com/tisnik/svitava-go/renderer/cplx"
+	"github.com/tisnik/svitava-go/renderer/textures"
 )
 
 func init() {
@@ -58,7 +59,11 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 	return deepImage.RGBA
 }
 
-func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image {
+func (r SingleGoroutineRenderer) RenderComplexFractal(
+	resolution im.Resolution,
+	params params.Cplx,
+	palette palettes.Palette) image.Image {
+
 	functions := map[string]fractalFunction{
 		"Classic Mandelbrot set":             cplx.CalcMandelbrotComplex,
 		"Classic Julia set":                  cplx.CalcJulia,
@@ -83,6 +88,9 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(resolution im.Resolution, 
 		"Manowar, Mandelbrot variant":        cplx.CalcManowarM,
 		"Manowar, Julia variant":             cplx.CalcManowarJ,
 		"Mandelbrot, Z power":                cplx.CalcZPowerMandelbrot,
+		"Circle pattern":                     textures.CalcCirclePattern,
+		"Plasma pattern":                     textures.CalcPlasmaPattern,
+		"FM synth":                           textures.CalcFMSynth,
 	}
 
 	function, exists := functions[params.Name]
