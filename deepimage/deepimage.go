@@ -60,3 +60,23 @@ func (i *Image) ApplyPalette(palette palettes.Palette) {
 		}
 	}
 }
+
+func (image *Image) RImage2IImage() {
+	r := image.Resolution
+	width := r.Width
+	height := r.Height
+
+	min, max := image.R.minMax(width, height)
+	k := 255.0 / (max - min)
+
+	for y := uint(0); y < height; y++ {
+		for x := uint(0); x < width; x++ {
+			f := float64(image.R[y][x])
+			f -= min
+			f *= k
+			i := int(f) & 255
+			image.Z[y][x] = ZPixel(complex(float32(x), float32(y)))
+			image.I[y][x] = IPixel(i)
+		}
+	}
+}
