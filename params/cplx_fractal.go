@@ -62,6 +62,7 @@ func LoadCplxParameters(filename string) (map[string]Cplx, error) {
 		return asMap, errors.New("Parameter file does not exist.")
 	}
 	if err != nil {
+		log.Fatal(err)
 		return asMap, err
 	}
 
