@@ -17,6 +17,8 @@ import (
 	"image/png"
 	"log"
 	"net/http"
+	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/tisnik/svitava-go/image"
@@ -77,7 +79,14 @@ func (s HTTPServer) complexFractalsPageHandler(w http.ResponseWriter, r *http.Re
 func (s HTTPServer) staticIconHandler(w http.ResponseWriter, r *http.Request) {
 	iconName := r.URL.String()
 	fileName := strings.TrimPrefix(iconName, "/icons/")
-	fullPath := "web-content/icons/" + fileName
+
+	cleanPath := path.Clean(fileName)
+
+	if strings.HasPrefix(cleanPath, "..") || cleanPath == "." {
+		http.Error(w, "invalid path", http.StatusBadRequest)
+		return
+	}
+	fullPath := filepath.Join("web-content/icons", cleanPath)
 	http.ServeFile(w, r, fullPath)
 }
 
@@ -146,5 +155,10 @@ func (s HTTPServer) Serve() {
 	//imageServer := http.FileServer(http.Dir("web-content/images/"))
 	//http.Handle("/image/", http.StripPrefix("/image", imageServer))
 
-	http.ListenAndServe(":8080", nil)
+	// int port -> address
+	addr := fmt.Sprintf(":%d", s.port)
+	err := http.ListenAndServe(addr, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
