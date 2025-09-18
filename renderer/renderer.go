@@ -102,16 +102,6 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 	return render(resolution.Width, resolution.Height, params, palette, function)
 }
 
-// RenderMandelbrotFractal renders a classic Mandelbrot fractal into provided Image.
-func RenderMandelbrotFractal(width uint, height uint, pcx float64, pcy float64, maxiter uint, palette palettes.Palette) image.Image {
-	params := params.Cplx{
-		Cx0:     0,
-		Cy0:     0,
-		Maxiter: maxiter,
-	}
-	return render(width, height, params, palette, cplx.CalcMandelbrotComplex)
-}
-
 // RenderJuliaFractal renders a classic Julia fractal into provided Image.
 func RenderJuliaFractal(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
 	params := params.Cplx{
