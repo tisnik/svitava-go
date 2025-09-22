@@ -24,3 +24,11 @@ func getSteps(
 	stepY := float64(params.Ymax-params.Ymin) / float64(image.Resolution.Height)
 	return stepX, stepY
 }
+
+func calcIndex(params params.Cplx, i uint) uint {
+	index := params.Palette.Shift + int(i)*params.Palette.Slope
+	if index < 0 {
+		return 0
+	}
+	return uint(index)
+}
