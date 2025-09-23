@@ -31,6 +31,55 @@ const (
 	CONFIG_FILE_NAME = "config.toml"
 )
 
+func runInDemoMode() {
+	log.Println("Starting demo mode: render all fractals available")
+
+	palette, err := palettes.LoadTextRGBPalette("data/blues.map")
+	log.Println("Color palette loaded")
+
+	resolution := image.Resolution{
+		Width:  512,
+		Height: 512,
+	}
+
+	r := renderer.NewSingleGoroutineRenderer()
+
+	parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
+	log.Printf("Fractal configuration:  %v  %v", parameters, err)
+
+	var writer image.Writer
+	writer = image.NewBMPImageWriter()
+	log.Println("BMP image writer initialized")
+
+	fractals := []string{
+		"Classic Mandelbrot set",
+		"Classic Julia set",
+		"Mandelbrot set z=z^3+c",
+		"Mandelbrot set z=z^4+c",
+		"Mandelbrot set z=z^2-z+c",
+		"Phoenix set, Mandelbrot variant",
+		"Phoenix set, Julia variant",
+		"Lambda, Mandelbrot variant",
+		"Lambda, Julia variant",
+		"Manowar, Mandelbrot variant",
+		"Manowar, Julia variant",
+	}
+
+	for _, fractal := range fractals {
+		log.Println("Rendering", fractal, "started")
+		img := r.RenderComplexFractal(resolution, parameters[fractal], palette)
+		writer.WriteImage(fractal+".bmp", img)
+		log.Println("Rendering", fractal, "finished")
+	}
+}
+
+func runInServerMode(port uint) {
+	log.Println("Starting server")
+	r := renderer.NewSingleGoroutineRenderer()
+	server := server.NewHTTPServer(port, r)
+	server.Serve()
+}
+
 func main() {
 	var width uint
 	var height uint
@@ -76,53 +125,73 @@ func main() {
 	flag.Parse()
 
 	if startServer {
-		log.Println("Starting server")
-		r := renderer.NewSingleGoroutineRenderer()
-		server := server.NewHTTPServer(port, r)
-		server.Serve()
+		runInServerMode(port)
 		return
 	}
 
 	if demoMode {
-		log.Println("Starting demo mode: render all fractals available")
-
-		palette, err := palettes.LoadTextRGBPalette("data/mandmap.map")
-		log.Println("Color palette loaded")
-
-		resolution := image.Resolution{
-			Width:  512,
-			Height: 512,
-		}
-
-		r := renderer.NewSingleGoroutineRenderer()
-
-		parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
-		log.Printf("Fractal configuration:  %v  %v", parameters, err)
-
-		var writer image.Writer
-		writer = image.NewBMPImageWriter()
-		log.Println("BMP image writer initialized")
-
-		fractals := []string{
-			"Classic Mandelbrot set",
-			"Classic Julia set",
-			"Mandelbrot set z=z^3+c",
-			"Mandelbrot set z=z^4+c",
-			"Mandelbrot set z=z^2-z+c",
-			"Phoenix set, Mandelbrot variant",
-			"Phoenix set, Julia variant",
-			"Lambda, Mandelbrot variant",
-			"Lambda, Julia variant",
-			"Manowar, Mandelbrot variant",
-			"Manowar, Julia variant",
-		}
-
-		for _, fractal := range fractals {
-			log.Println("Rendering", fractal, "started")
-			img := r.RenderComplexFractal(resolution, parameters[fractal], palette)
-			writer.WriteImage(fractal+".bmp", img)
-			log.Println("Rendering", fractal, "finished")
-		}
+		runInDemoMode()
+		return
 	}
 
+	resolution := image.Resolution{
+		Width:  256,
+		Height: 256,
+	}
+
+	var writer image.Writer
+	writer = image.NewBMPImageWriter()
+	log.Println("BMP image writer initialized")
+	palette, _ := palettes.LoadTextRGBPalette("data/blues.map")
+	r := renderer.NewSingleGoroutineRenderer()
+	parameters, _ := params.LoadCplxParameters("data/complex_fractals.toml")
+	for name, params := range parameters {
+		fmt.Println(name)
+		fmt.Println(params.Palette)
+		fmt.Println()
+
+	}
+
+	/*
+			img := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=z^2+z+c"], palette)
+			writer.WriteImage("test_1.bmp", img)
+
+			img2 := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=z^2-z+c"], palette)
+			writer.WriteImage("test_2.bmp", img2)
+
+			img3 := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=sin(z)*c"], palette)
+			writer.WriteImage("test_3.bmp", img3)
+		img4 := r.RenderComplexFractal(resolution, parameters["Julia set z=sin(z)*c"], palette)
+		writer.WriteImage("test_4.bmp", img4)
+		img5 := r.RenderComplexFractal(resolution, parameters["Julia set z=z^4+c"], palette)
+		writer.WriteImage("test_5.bmp", img5)
+	*/
+	img4 := r.RenderComplexFractal(resolution, parameters["Classic Mandelbrot set"], palette)
+	writer.WriteImage("test_4.bmp", img4)
+
+	fmt.Println("---------------")
+	tparameters, err := params.LoadCplxParameters("data/textures.toml")
+	fmt.Println(tparameters)
+	fmt.Println(err)
+	fmt.Println("---------------")
+
+	for name, params := range tparameters {
+		fmt.Println(name)
+		fmt.Println(params.Palette)
+		fmt.Println()
+	}
+
+	img5 := r.RenderComplexFractal(resolution, tparameters["Circle pattern"], palette)
+	writer.WriteImage("test_5.bmp", img5)
+
+	img6 := r.RenderComplexFractal(resolution, tparameters["Plasma pattern"], palette)
+	writer.WriteImage("test_6.bmp", img6)
+
+	img7 := r.RenderComplexFractal(resolution, tparameters["FM synth"], palette)
+	writer.WriteImage("test_7.bmp", img7)
+
+	/*
+		img5 := r.RenderComplexFractal(resolution, parameters["Mandelbrot, Z power"], palette)
+		writer.WriteImage("test_5.bmp", img5)
+	*/
 }
