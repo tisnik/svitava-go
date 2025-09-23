@@ -42,7 +42,7 @@ func CalcLambda(
 				i++
 			}
 			image.Z[y][x] = deepimage.ZPixel(z)
-			image.I[y][x] = deepimage.IPixel(i)
+			image.I[y][x] = deepimage.IPixel(calcIndex(params, i))
 			zx0 += 3.0 / float64(image.Resolution.Width)
 		}
 		zy0 += 3.0 / float64(image.Resolution.Height)
