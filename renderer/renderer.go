@@ -102,16 +102,6 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 	return render(resolution.Width, resolution.Height, params, palette, function)
 }
 
-// RenderBarnsleyFractalM3 renders a classic Barnsley fractal M3 into provided Image.
-func RenderBarnsleyFractalM3(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
-	params := params.Cplx{
-		Cx0:     0.0,
-		Cy0:     1.0,
-		Maxiter: maxiter,
-	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyMandelbrotM3)
-}
-
 // RenderBarnsleyFractalJ1 renders a classic Barnsley fractal J1 into provided Image.
 func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
 	params := params.Cplx{
