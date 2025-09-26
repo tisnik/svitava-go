@@ -56,7 +56,7 @@ func CalcMagnet(
 				i++
 			}
 			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
-			image.I[y][x] = deepimage.IPixel(i)
+			image.I[y][x] = deepimage.IPixel(calcIndex(params, i))
 			cx += 4.0 / float64(image.Resolution.Width)
 		}
 		cy += 4.0 / float64(image.Resolution.Height)
