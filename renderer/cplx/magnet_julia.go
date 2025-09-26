@@ -58,7 +58,7 @@ func CalcMagnetJulia(
 				i++
 			}
 			image.Z[y][x] = deepimage.ZPixel(complex(zx, zy))
-			image.I[y][x] = deepimage.IPixel(i)
+			image.I[y][x] = deepimage.IPixel(calcIndex(params, i))
 			zx0 += 4.0 / float64(image.Resolution.Width)
 		}
 		zy0 += 4.0 / float64(image.Resolution.Height)
