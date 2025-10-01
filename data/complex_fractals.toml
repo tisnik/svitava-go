@@ -217,4 +217,18 @@ xmax = 2.0
 ymin = -2.0
 ymax = 2.0
 
+[[complex_fractal]]
+name = "Newton fractal"
+type = "newton"
+cx0 = 0.0
+cy0 = 0.0
+maxiter = 1000
+bailout = 4
+xmin = -2.0
+xmax = 2.0
+ymin = -2.0
+ymax = 2.0
+palette.name = "xyz"
+palette.shift = 0
+palette.slope = 3
 
