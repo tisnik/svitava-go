@@ -33,6 +33,7 @@ type Palette struct {
 type Cplx struct {
 	Name      string  `toml:"name"`
 	Type      string  `toml:"type"`
+	Class     string  `toml:"class"`
 	Cx0       float64 `toml:"cx0"`
 	Cy0       float64 `toml:"cy0"`
 	Palette   Palette `toml:"palette"`
