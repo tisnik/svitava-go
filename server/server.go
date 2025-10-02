@@ -27,6 +27,8 @@ import (
 	"github.com/tisnik/svitava-go/renderer"
 )
 
+const ParameterFileName = "data/svitava.toml"
+
 // Server interface can be satisfied by any structure that implements Serve()
 // method
 type Server interface {
@@ -125,7 +127,7 @@ func (s HTTPServer) fractalImageHandler(w http.ResponseWriter, r *http.Request) 
 	}
 	fmt.Println(fractalName, paletteName, resolution)
 	palette, _ := palettes.LoadTextRGBPalette("data/" + paletteName + ".map")
-	parametersMap, _ := params.LoadCplxParameters("data/complex_fractals.toml")
+	parametersMap, _ := params.LoadCplxParameters(ParameterFileName)
 
 	if parameters, found := parametersMap[fractalName]; found {
 		img := s.renderer.RenderComplexFractal(resolution, parameters, palette)
