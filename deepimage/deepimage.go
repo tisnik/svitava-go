@@ -74,6 +74,33 @@ func (image *Image) RImage2IImage() {
 			f := float64(image.R[y][x])
 			f -= min
 			f *= k
+			if f > 255.0 {
+				f = 255
+			}
+			i := int(f) & 255
+			image.Z[y][x] = ZPixel(complex(float32(x), float32(y)))
+			image.I[y][x] = IPixel(i)
+		}
+	}
+}
+
+func (image *Image) RImage2IImageWithFactor(maxFactor float64) {
+	r := image.Resolution
+	width := r.Width
+	height := r.Height
+
+	min, max := image.R.minMax(width, height)
+	max *= maxFactor
+	k := 255.0 / (max - min)
+
+	for y := uint(0); y < height; y++ {
+		for x := uint(0); x < width; x++ {
+			f := float64(image.R[y][x])
+			f -= min
+			f *= k
+			if f > 255.0 {
+				f = 255
+			}
 			i := int(f) & 255
 			image.Z[y][x] = ZPixel(complex(float32(x), float32(y)))
 			image.I[y][x] = IPixel(i)
