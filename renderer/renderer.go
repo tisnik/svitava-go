@@ -103,16 +103,6 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 	return render(resolution.Width, resolution.Height, params, palette, function)
 }
 
-// RenderBarnsleyFractalJ1 renders a classic Barnsley fractal J1 into provided Image.
-func RenderBarnsleyFractalJ1(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
-	params := params.Cplx{
-		Cx0:     0.48,
-		Cy0:     -1.32,
-		Maxiter: maxiter,
-	}
-	return render(width, height, params, palette, cplx.CalcBarnsleyJuliaJ1)
-}
-
 // RenderBarnsleyFractalJ2 renders a classic Barnsley fractal J2 into provided Image.
 func RenderBarnsleyFractalJ2(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
 	params := params.Cplx{
