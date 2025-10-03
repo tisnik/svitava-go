@@ -42,7 +42,7 @@ func CalcMandelbrotZ3(
 				i++
 			}
 			image.Z[y][x] = deepimage.ZPixel(z)
-			image.I[y][x] = deepimage.IPixel(i)
+			image.I[y][x] = deepimage.IPixel(calcIndex(params, i))
 			cx += stepX
 		}
 		cy += stepY
