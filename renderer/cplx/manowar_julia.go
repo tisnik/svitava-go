@@ -48,7 +48,7 @@ func CalcManowarJ(
 			}
 			i *= 3
 			image.Z[y][x] = deepimage.ZPixel(z)
-			image.I[y][x] = deepimage.IPixel(i)
+			image.I[y][x] = deepimage.IPixel(calcIndex(params, i))
 			zx0 += stepX
 		}
 		zy0 += stepY
