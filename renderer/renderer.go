@@ -19,6 +19,7 @@ import (
 	im "github.com/tisnik/svitava-go/image"
 	"github.com/tisnik/svitava-go/palettes"
 	"github.com/tisnik/svitava-go/params"
+	"github.com/tisnik/svitava-go/renderer/attractors_2d"
 	"github.com/tisnik/svitava-go/renderer/cplx"
 	"github.com/tisnik/svitava-go/renderer/textures"
 )
@@ -92,6 +93,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 		"circle_pattern":    textures.CalcCirclePattern,
 		"plasma_pattern":    textures.CalcPlasmaPattern,
 		"fm_synth":          textures.CalcFMSynth,
+		"bedhead":           attractors_2d.CalcBedheadAttractor,
 	}
 
 	function, exists := functions[params.Type]
@@ -101,21 +103,6 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 	}
 
 	return render(resolution.Width, resolution.Height, params, palette, function)
-}
-
-// RenderMagnet renders a classic Magnet fractal into provided Image.
-func RenderMagnetFractal(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
-	/*params := params.Cplx{
-		Cx0:     1.1,
-		Cy0:     1.1,
-		Maxiter: maxiter,
-	}*/
-	params := params.Cplx{
-		Cx0:     0.0,
-		Cy0:     0.0,
-		Maxiter: maxiter,
-	}
-	return render(width, height, params, palette, cplx.CalcMagnet)
 }
 
 // RenderMagnet renders a classic Magnet Julia fractal into provided Image.
