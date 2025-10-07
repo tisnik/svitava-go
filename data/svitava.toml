@@ -34,3 +34,13 @@ xmin = -100
 xmax = 100
 ymin = -100
 ymax = 100
+
+[[complex_fractal]]
+name = "Bedhead"
+type = "bedhead"
+maxiter = 1000000
+A = 0.06
+B = 0.99
+scale = 40
+x_offset = 20
+y_offset = 5
