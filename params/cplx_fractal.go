@@ -45,6 +45,11 @@ type Cplx struct {
 	Ymin      float64 `toml:"ymin"`
 	Xmax      float64 `toml:"xmax"`
 	Ymax      float64 `toml:"ymax"`
+	A         float64 `toml:"A"`
+	B         float64 `toml:"B"`
+	Scale     float64 `toml:"scale"`
+	XOffset   float64 `toml:"x_offset"`
+	YOffset   float64 `toml:"y_offset"`
 }
 
 // Sequence of fractal parameters
