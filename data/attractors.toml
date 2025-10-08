@@ -1,0 +1,9 @@
+[[complex_fractal]]
+name = "Bedhead"
+type = "bedhead"
+maxiter = 1000000
+A = 0.06
+B = 0.99
+scale = 35
+x_offset = 40
+y_offset = 10
