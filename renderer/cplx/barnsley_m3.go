@@ -19,7 +19,7 @@ import (
 
 // CalcBarnsleyMandelbrotM3 calculates Barnsley M3 Mandelbrot-like set
 func CalcBarnsleyMandelbrotM3(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	var cy float64 = -2.0
