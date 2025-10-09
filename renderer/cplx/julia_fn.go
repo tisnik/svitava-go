@@ -21,7 +21,7 @@ import (
 
 // CalcJuliaFn calculates Julia set into the provided ZPixels
 func CalcJuliaFn(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
