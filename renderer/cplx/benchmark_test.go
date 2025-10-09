@@ -26,7 +26,7 @@ const (
 )
 
 func BenchmarkCalcMandelbrot(b *testing.B) {
-	params := params.Cplx{
+	params := params.FractalParameter{
 		Cx0:     0,
 		Cy0:     0,
 		Maxiter: MAXITER,
@@ -38,7 +38,7 @@ func BenchmarkCalcMandelbrot(b *testing.B) {
 }
 
 func BenchmarkCalcMandelbrotComplex(b *testing.B) {
-	params := params.Cplx{
+	params := params.FractalParameter{
 		Cx0:     0,
 		Cy0:     0,
 		Maxiter: MAXITER,
@@ -50,7 +50,7 @@ func BenchmarkCalcMandelbrotComplex(b *testing.B) {
 }
 
 func BenchmarkCalcJulia(b *testing.B) {
-	params := params.Cplx{
+	params := params.FractalParameter{
 		Cx0:     0.0,
 		Cy0:     1.0,
 		Maxiter: MAXITER,
