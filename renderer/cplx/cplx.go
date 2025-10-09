@@ -18,14 +18,14 @@ import (
 )
 
 func getSteps(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) (float64, float64) {
 	stepX := float64(params.Xmax-params.Xmin) / float64(image.Resolution.Width)
 	stepY := float64(params.Ymax-params.Ymin) / float64(image.Resolution.Height)
 	return stepX, stepY
 }
 
-func calcIndex(params params.Cplx, i uint) uint {
+func calcIndex(params params.FractalParameter, i uint) uint {
 	index := params.Palette.Shift + int(i)*params.Palette.Slope
 	if index < 0 {
 		return 0
