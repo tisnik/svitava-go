@@ -19,7 +19,7 @@ import (
 
 // CalcBarnsleyMandelbrotM2 calculates Barnsley M2 Mandelbrot-like set
 func CalcBarnsleyMandelbrotM2(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
