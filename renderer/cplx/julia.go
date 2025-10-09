@@ -19,7 +19,7 @@ import (
 
 // CalcJulia calculates classic Julia fractal
 func CalcJulia(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
