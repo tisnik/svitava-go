@@ -19,7 +19,7 @@ import (
 
 // CalcMandelbrot calculates Mandelbrot set into the provided ZPixels
 func CalcMandelbrot(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
@@ -52,7 +52,7 @@ func CalcMandelbrot(
 // CalcMandelbrotComplex calculates Mandelbrot set into the provided ZPixels
 // Calculations use complex numbers
 func CalcMandelbrotComplex(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
@@ -84,7 +84,7 @@ func CalcMandelbrotComplex(
 // CalcMandelbrotZ2pZ calculates Mandelbrot set z=z^2+z+c into the provided ZPixels
 // Calculations use complex numbers
 func CalcMandelbrotZ2pZ(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	var cy float64 = -1.5
@@ -114,7 +114,7 @@ func CalcMandelbrotZ2pZ(
 // CalcMandelbrotZ2mZ calculates Mandelbrot set z=z^2-z+c into the provided ZPixels
 // Calculations use complex numbers
 func CalcMandelbrotZ2mZ(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	var cy float64 = -1.5
