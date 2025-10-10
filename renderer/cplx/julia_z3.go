@@ -19,7 +19,7 @@ import (
 
 // CalcJulia calculates Julia fractal for Z=Z^3+c
 func CalcJuliaZ3(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
