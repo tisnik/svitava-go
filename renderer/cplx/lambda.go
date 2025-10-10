@@ -19,7 +19,7 @@ import (
 
 // CalcMandelLambda calculates Mandelbrot variant of Lambda fractal
 func CalcMandelLambda(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
