@@ -19,7 +19,7 @@ import (
 
 // CalcMagnet calculates Magnet Mandelbrot-like set
 func CalcMagnet(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 	const MIN_VALUE = 1.0 - 100
 
