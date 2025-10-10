@@ -21,7 +21,7 @@ import (
 
 // CalcMandelbrotFn calculates Mandelbrot set into the provided ZPixels
 func CalcMandelbrotFn(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
