@@ -19,7 +19,7 @@ import (
 
 // CalcLambda calculates Julia variant of Lambda fractal
 func CalcLambda(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	cx := params.Cx0
