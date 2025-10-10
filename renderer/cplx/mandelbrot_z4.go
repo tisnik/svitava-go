@@ -20,7 +20,7 @@ import (
 // CalcMandelbrotZ4 calculates Mandelbrot set z=z^4+c into the provided ZPixels
 // Calculations use complex numbers
 func CalcMandelbrotZ4(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	var cy float64 = -1.5
