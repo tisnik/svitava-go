@@ -20,7 +20,7 @@ import (
 // CalcMandelbrotZ3 calculates Mandelbrot set z=z^3+c into the provided ZPixels
 // Calculations use complex numbers
 func CalcMandelbrotZ3(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
