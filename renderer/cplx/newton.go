@@ -21,7 +21,7 @@ import (
 
 // CalcNewton calculates Newton fractal
 func CalcNewton(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	const Epsilon = 0.001
