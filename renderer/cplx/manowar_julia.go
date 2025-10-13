@@ -19,7 +19,7 @@ import (
 
 // CalcManowarJ calculates Manowar Julia-like set
 func CalcManowarJ(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
