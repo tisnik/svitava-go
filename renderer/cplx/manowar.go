@@ -19,7 +19,7 @@ import (
 
 // CalcManowarM calculates Manowar Mandelbrot-like set
 func CalcManowarM(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
