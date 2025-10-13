@@ -19,7 +19,7 @@ import (
 
 // CalcPhoenixM calculates Phoenix Mandelbrot-like set
 func CalcPhoenixM(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
