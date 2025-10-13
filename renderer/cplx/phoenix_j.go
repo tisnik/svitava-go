@@ -19,7 +19,7 @@ import (
 
 // CalcPhoenixJ calculates Phoenix Julia-like set
 func CalcPhoenixJ(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
