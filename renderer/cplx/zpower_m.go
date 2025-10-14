@@ -22,7 +22,7 @@ import (
 // CalcZPowerMandelbrot calculates Mandelbrot set into the provided ZPixels
 // Calculations use complex numbers
 func CalcZPowerMandelbrot(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
