@@ -29,7 +29,7 @@ func init() {
 }
 
 type Renderer interface {
-	RenderComplexFractal(resolution im.Resolution, params params.Cplx, palette palettes.Palette) image.Image
+	RenderComplexFractal(resolution im.Resolution, params params.FractalParameter, palette palettes.Palette) image.Image
 }
 
 type SingleGoroutineRenderer struct {
@@ -39,9 +39,9 @@ func NewSingleGoroutineRenderer() Renderer {
 	return SingleGoroutineRenderer{}
 }
 
-type fractalFunction = func(params params.Cplx, deepImage deepimage.Image)
+type fractalFunction = func(params params.FractalParameter, deepImage deepimage.Image)
 
-func render(width uint, height uint, params params.Cplx, palette palettes.Palette, function fractalFunction) image.Image {
+func render(width uint, height uint, params params.FractalParameter, palette palettes.Palette, function fractalFunction) image.Image {
 	if width == 0 || height == 0 {
 		// TODO: logging
 		return nil
@@ -62,7 +62,7 @@ func render(width uint, height uint, params params.Cplx, palette palettes.Palett
 
 func (r SingleGoroutineRenderer) RenderComplexFractal(
 	resolution im.Resolution,
-	params params.Cplx,
+	params params.FractalParameter,
 	palette palettes.Palette) image.Image {
 
 	functions := map[string]fractalFunction{
@@ -94,6 +94,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 		"plasma_pattern":    textures.CalcPlasmaPattern,
 		"fm_synth":          textures.CalcFMSynth,
 		"bedhead":           attractors_2d.CalcBedheadAttractor,
+		"de_jong":           attractors_2d.CalcDeJongAttractor,
 	}
 
 	function, exists := functions[params.Type]
@@ -107,7 +108,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 
 // RenderMagnet renders a classic Magnet Julia fractal into provided Image.
 func RenderMagnetJuliaFractal(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
-	params := params.Cplx{
+	params := params.FractalParameter{
 		Cx0:     0.5,
 		Cy0:     -1.5,
 		Maxiter: maxiter,
