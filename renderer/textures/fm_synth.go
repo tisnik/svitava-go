@@ -26,7 +26,7 @@ import (
 // The function does not return a value; it mutates zimage parameter in place
 // instead.
 func CalcFMSynth(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	width := image.Resolution.Width
