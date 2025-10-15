@@ -18,7 +18,7 @@ import (
 )
 
 func CalcCirclePattern(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	stepX, stepY := getSteps(params, image)
