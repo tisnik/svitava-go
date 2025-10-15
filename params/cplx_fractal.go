@@ -27,10 +27,8 @@ type Palette struct {
 	Slope int    `toml:"slope"`
 }
 
-// Cplx structure contains information about all fractal parameters.
-//
-// None: currently, only fractals in complex plane are supported
-type Cplx struct {
+// FractalParameter structure contains information about all fractal parameters.
+type FractalParameter struct {
 	Name      string  `toml:"name"`
 	Type      string  `toml:"type"`
 	Class     string  `toml:"class"`
@@ -47,6 +45,8 @@ type Cplx struct {
 	Ymax      float64 `toml:"ymax"`
 	A         float64 `toml:"A"`
 	B         float64 `toml:"B"`
+	C         float64 `toml:"C"`
+	D         float64 `toml:"D"`
 	Scale     float64 `toml:"scale"`
 	XOffset   float64 `toml:"x_offset"`
 	YOffset   float64 `toml:"y_offset"`
@@ -54,13 +54,13 @@ type Cplx struct {
 
 // Sequence of fractal parameters
 type CplxParams struct {
-	Parameters []Cplx `toml:"complex_fractal"`
+	Parameters []FractalParameter `toml:"complex_fractal"`
 }
 
 // LoadCplxParameters function reads fractal parameters from external text file
-func LoadCplxParameters(filename string) (map[string]Cplx, error) {
+func LoadCplxParameters(filename string) (map[string]FractalParameter, error) {
 	var parameters CplxParams
-	asMap := map[string]Cplx{}
+	asMap := map[string]FractalParameter{}
 
 	_, err := os.Stat(filename)
 
