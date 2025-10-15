@@ -75,7 +75,7 @@ func spectralSynthesis(image deepimage.Image, n uint, h float32) {
 }
 
 func CalcPlasmaPattern(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	spectralSynthesis(image, 6, 0.6)
