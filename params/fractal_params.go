@@ -53,13 +53,13 @@ type FractalParameter struct {
 }
 
 // Sequence of fractal parameters
-type CplxParams struct {
+type FractalParameters struct {
 	Parameters []FractalParameter `toml:"complex_fractal"`
 }
 
-// LoadCplxParameters function reads fractal parameters from external text file
-func LoadCplxParameters(filename string) (map[string]FractalParameter, error) {
-	var parameters CplxParams
+// LoadFractalParameters function reads fractal parameters from external text file
+func LoadFractalParameters(filename string) (map[string]FractalParameter, error) {
+	var parameters FractalParameters
 	asMap := map[string]FractalParameter{}
 
 	_, err := os.Stat(filename)

@@ -127,7 +127,7 @@ func (s HTTPServer) fractalImageHandler(w http.ResponseWriter, r *http.Request) 
 	}
 	fmt.Println(fractalName, paletteName, resolution)
 	palette, _ := palettes.LoadTextRGBPalette("data/" + paletteName + ".map")
-	parametersMap, _ := params.LoadCplxParameters(ParameterFileName)
+	parametersMap, _ := params.LoadFractalParameters(ParameterFileName)
 
 	if parameters, found := parametersMap[fractalName]; found {
 		img := s.renderer.RenderComplexFractal(resolution, parameters, palette)
