@@ -26,7 +26,7 @@ func bedhead(x, y, a, b float64) (float64, float64) {
 }
 
 func CalcBedheadAttractor(
-	params params.Cplx,
+	params params.FractalParameter,
 	image deepimage.Image) {
 
 	width := image.Resolution.Width
