@@ -12,3 +12,10 @@
 
 // 2D attractors
 package attractors_2d
+
+func sign(x float64) float64 {
+	if x > 0 {
+		return 1
+	}
+	return 0
+}
