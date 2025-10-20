@@ -32,3 +32,14 @@ scale = 70
 x_offset = 0
 y_offset = 0
 
+[[complex_fractal]]
+name = "Hopalong"
+type = "hopalong"
+maxiter = 1000000
+A = 7.16878197155893
+B = 8.43659746693447
+C = 2.55983412731439
+scale = 2
+x_offset = 0
+y_offset = 0
+
