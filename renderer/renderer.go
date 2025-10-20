@@ -105,13 +105,3 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 
 	return render(resolution.Width, resolution.Height, params, palette, function)
 }
-
-// RenderMagnet renders a classic Magnet Julia fractal into provided Image.
-func RenderMagnetJuliaFractal(width uint, height uint, maxiter uint, palette palettes.Palette) image.Image {
-	params := params.FractalParameter{
-		Cx0:     0.5,
-		Cy0:     -1.5,
-		Maxiter: maxiter,
-	}
-	return render(width, height, params, palette, cplx.CalcMagnetJulia)
-}
