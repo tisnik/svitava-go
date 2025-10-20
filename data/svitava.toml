@@ -44,3 +44,15 @@ B = 0.99
 scale = 40
 x_offset = 20
 y_offset = 5
+
+[[complex_fractal]]
+name = "De Jong"
+type = "de_jong"
+maxiter = 1000000
+A = -2.7
+B = -0.09
+C = -0.86
+D = -2.20
+scale = 80
+x_offset = 80
+y_offset = -40
