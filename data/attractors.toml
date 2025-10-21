@@ -43,3 +43,14 @@ scale = 2
 x_offset = 0
 y_offset = 0
 
+[[complex_fractal]]
+name = "Jason Rampe 1"
+type = "jason_rampe_1"
+maxiter = 1000000
+A = -2.7918
+B = 2.1196
+C = 1.0284
+D = 0.1384
+scale = 60
+x_offset = -10
+y_offset = 0
