@@ -12,6 +12,8 @@
 
 package renderer
 
+import "log"
+
 func init() {
-	println("Init")
+	log.Println("Colorizer: init")
 }
