@@ -14,6 +14,7 @@ package renderer
 
 import (
 	"image"
+	"log"
 
 	"github.com/tisnik/svitava-go/deepimage"
 	im "github.com/tisnik/svitava-go/image"
@@ -25,7 +26,7 @@ import (
 )
 
 func init() {
-	println("Init")
+	log.Println("Renderer: init")
 }
 
 type Renderer interface {
@@ -96,6 +97,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 		"bedhead":           attractors_2d.CalcBedheadAttractor,
 		"de_jong":           attractors_2d.CalcDeJongAttractor,
 		"jason_rampe_1":     attractors_2d.CalcJasonRampe1Attractor,
+		"jason_rampe_2":     attractors_2d.CalcJasonRampe2Attractor,
 	}
 
 	function, exists := functions[params.Type]
