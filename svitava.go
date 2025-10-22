@@ -44,7 +44,7 @@ func runInDemoMode() {
 
 	r := renderer.NewSingleGoroutineRenderer()
 
-	parameters, err := params.LoadCplxParameters("data/complex_fractals.toml")
+	parameters, err := params.LoadFractalParameters("data/complex_fractals.toml")
 	log.Printf("Fractal configuration:  %v  %v", parameters, err)
 
 	var writer image.Writer
@@ -95,7 +95,7 @@ func main() {
 		println("Unable to load configuration")
 		os.Exit(1)
 	}
-	fmt.Println(configuration)
+	log.Println(configuration)
 
 	flag.UintVar(&width, "w", 0, "image width (shorthand)")
 	flag.UintVar(&width, "width", 0, "image width")
@@ -134,64 +134,5 @@ func main() {
 		return
 	}
 
-	resolution := image.Resolution{
-		Width:  256,
-		Height: 256,
-	}
-
-	var writer image.Writer
-	writer = image.NewBMPImageWriter()
-	log.Println("BMP image writer initialized")
-	palette, _ := palettes.LoadTextRGBPalette("data/blues.map")
-	r := renderer.NewSingleGoroutineRenderer()
-	parameters, _ := params.LoadCplxParameters("data/complex_fractals.toml")
-	for name, params := range parameters {
-		fmt.Println(name)
-		fmt.Println(params.Palette)
-		fmt.Println()
-
-	}
-
-	/*
-			img := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=z^2+z+c"], palette)
-			writer.WriteImage("test_1.bmp", img)
-
-			img2 := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=z^2-z+c"], palette)
-			writer.WriteImage("test_2.bmp", img2)
-
-			img3 := r.RenderComplexFractal(resolution, parameters["Mandelbrot set z=sin(z)*c"], palette)
-			writer.WriteImage("test_3.bmp", img3)
-		img4 := r.RenderComplexFractal(resolution, parameters["Julia set z=sin(z)*c"], palette)
-		writer.WriteImage("test_4.bmp", img4)
-		img5 := r.RenderComplexFractal(resolution, parameters["Julia set z=z^4+c"], palette)
-		writer.WriteImage("test_5.bmp", img5)
-	*/
-	img4 := r.RenderComplexFractal(resolution, parameters["Classic Mandelbrot set"], palette)
-	writer.WriteImage("test_4.bmp", img4)
-
-	fmt.Println("---------------")
-	tparameters, err := params.LoadCplxParameters("data/textures.toml")
-	fmt.Println(tparameters)
-	fmt.Println(err)
-	fmt.Println("---------------")
-
-	for name, params := range tparameters {
-		fmt.Println(name)
-		fmt.Println(params.Palette)
-		fmt.Println()
-	}
-
-	img5 := r.RenderComplexFractal(resolution, tparameters["Circle pattern"], palette)
-	writer.WriteImage("test_5.bmp", img5)
-
-	img6 := r.RenderComplexFractal(resolution, tparameters["Plasma pattern"], palette)
-	writer.WriteImage("test_6.bmp", img6)
-
-	img7 := r.RenderComplexFractal(resolution, tparameters["FM synth"], palette)
-	writer.WriteImage("test_7.bmp", img7)
-
-	/*
-		img5 := r.RenderComplexFractal(resolution, parameters["Mandelbrot, Z power"], palette)
-		writer.WriteImage("test_5.bmp", img5)
-	*/
+	fmt.Println("Please choose server mode or demo mode")
 }
