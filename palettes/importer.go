@@ -21,12 +21,14 @@ import (
 
 // LoadBinaryRGBPalette method loads RGB palette from binary file.
 func LoadBinaryRGBPalette(filename string) (Palette, error) {
+	// TODO: implementation is missing
 	p := Palette{}
 	return p, nil
 }
 
 // LoadBinaryRGBPalette method loads RGBA palette from binary file.
 func LoadBinaryRGBAPalette(filename string) (Palette, error) {
+	// TODO: implementation is missing
 	p := Palette{}
 	return p, nil
 }
