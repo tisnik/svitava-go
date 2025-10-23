@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
 
 	"github.com/tisnik/svitava-go/configuration"
 	"github.com/tisnik/svitava-go/image"
@@ -67,9 +68,11 @@ func runInDemoMode() {
 
 	for _, fractal := range fractals {
 		log.Println("Rendering", fractal, "started")
+		t1 := time.Now()
 		img := r.RenderComplexFractal(resolution, parameters[fractal], palette)
 		writer.WriteImage(fractal+".bmp", img)
-		log.Println("Rendering", fractal, "finished")
+		t2 := time.Now()
+		log.Println("Rendering", fractal, "finished in", t2.Sub(t1))
 	}
 }
 
@@ -95,7 +98,7 @@ func main() {
 		println("Unable to load configuration")
 		os.Exit(1)
 	}
-	log.Println(configuration)
+	log.Println("Configuration:", configuration)
 
 	flag.UintVar(&width, "w", 0, "image width (shorthand)")
 	flag.UintVar(&width, "width", 0, "image width")
