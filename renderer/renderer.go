@@ -97,6 +97,7 @@ func (r SingleGoroutineRenderer) RenderComplexFractal(
 		"bedhead":           attractors_2d.CalcBedheadAttractor,
 		"de_jong":           attractors_2d.CalcDeJongAttractor,
 		"fractal_dream":     attractors_2d.CalcFractalDreamAttractor,
+		"hopalong":          attractors_2d.CalcHopalongAttractor,
 		"jason_rampe_1":     attractors_2d.CalcJasonRampe1Attractor,
 		"jason_rampe_2":     attractors_2d.CalcJasonRampe2Attractor,
 	}
