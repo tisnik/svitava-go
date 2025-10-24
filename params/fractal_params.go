@@ -54,7 +54,7 @@ type FractalParameter struct {
 
 // Sequence of fractal parameters
 type FractalParameters struct {
-	Parameters []FractalParameter `toml:"complex_fractal"`
+	Parameters []FractalParameter `toml:"fractal"`
 }
 
 // LoadFractalParameters function reads fractal parameters from external text file
