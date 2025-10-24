@@ -1,4 +1,4 @@
-[[complex_fractal]]
+[[fractal]]
 name = "Circle pattern"
 type = "circle_pattern"
 xmin = -100
@@ -6,7 +6,7 @@ xmax = 100
 ymin = -100
 ymax = 100
 
-[[complex_fractal]]
+[[fractal]]
 name = "Circle FN pattern x^2-y^2"
 type = "circle_fn_pattern"
 function1 = "x^2-y^2"
@@ -15,7 +15,7 @@ xmax = 200
 ymin = -200
 ymax = 200
 
-[[complex_fractal]]
+[[fractal]]
 name = "Circle FN pattern x^3+y^3"
 type = "circle_fn_pattern"
 function1 = "x^3+y^3"
@@ -24,7 +24,7 @@ xmax = 0
 ymin = -50
 ymax = 0
 
-[[complex_fractal]]
+[[fractal]]
 name = "Circle FN pattern x^3y+y^2x"
 type = "circle_fn_pattern"
 function1 = "x^3y+y^2x"
@@ -33,7 +33,7 @@ xmax = 0
 ymin = -50
 ymax = 0
 
-[[complex_fractal]]
+[[fractal]]
 name = "Circle FN pattern x^2+y^2+xy"
 type = "circle_fn_pattern"
 function1 = "x^2+y^2+xy"
@@ -42,7 +42,7 @@ xmax = 250
 ymin = -250
 ymax = 250
 
-[[complex_fractal]]
+[[fractal]]
 name = "Plasma pattern"
 type = "plasma_pattern"
 xmin = -100
@@ -50,7 +50,7 @@ xmax = 100
 ymin = -100
 ymax = 100
 
-[[complex_fractal]]
+[[fractal]]
 name = "FM synth"
 type = "fm_synth"
 xmin = -100
