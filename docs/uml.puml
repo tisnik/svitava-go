@@ -47,6 +47,12 @@ namespace deepimage {
         + RGBA *image.NRGBA
 
         + ApplyPalette(palette palettes.Palette) 
+        + RImage2IImage() 
+        + RImage2IImageWithFactor(maxFactor float64) 
+
+    }
+    class RImage << (S,Aquamarine) >> {
+        - minMax(width uint, height uint) (float64, float64)
 
     }
     class Resolution << (S,Aquamarine) >> {
@@ -138,11 +144,13 @@ namespace palettes {
 
 
 namespace params {
-    class Cplx << (S,Aquamarine) >> {
+    class FractalParameter << (S,Aquamarine) >> {
         + Name string
         + Type string
+        + Class string
         + Cx0 float64
         + Cy0 float64
+        + Palette Palette
         + Maxiter uint
         + Bailout uint
         + Function1 string
@@ -151,29 +159,43 @@ namespace params {
         + Ymin float64
         + Xmax float64
         + Ymax float64
+        + A float64
+        + B float64
+        + C float64
+        + D float64
+        + Scale float64
+        + XOffset float64
+        + YOffset float64
 
     }
-    class CplxParams << (S,Aquamarine) >> {
-        + Parameters []Cplx
+    class FractalParameters << (S,Aquamarine) >> {
+        + Parameters []FractalParameter
+
+    }
+    class Palette << (S,Aquamarine) >> {
+        + Name string
+        + Shift int
+        + Slope int
 
     }
 }
 
 
-"params.CplxParams""uses" o-- "params.Cplx"
+"params.FractalParameter""uses" o-- "params.Palette"
+"params.FractalParameters""uses" o-- "params.FractalParameter"
 
 namespace renderer {
     interface Renderer  {
-        + RenderComplexFractal(resolution image.Resolution, params params.Cplx, palette palettes.Palette) image.Image
+        + RenderComplexFractal(resolution image.Resolution, params params.FractalParameter, palette palettes.Palette) image.Image
 
     }
     class SingleGoroutineRenderer << (S,Aquamarine) >> {
-        + RenderComplexFractal(resolution image.Resolution, params params.Cplx, palette palettes.Palette) image.Image
+        + RenderComplexFractal(resolution image.Resolution, params params.FractalParameter, palette palettes.Palette) image.Image
 
     }
     class renderer.fractalFunction << (T, #FF7700) >>  {
     }
-    class "<font color=blue>func</font>(params.Cplx, deepimage.Image) " as fontcolorbluefuncfontparamsCplxdeepimageImage {
+    class "<font color=blue>func</font>(params.FractalParameter, deepimage.Image) " as fontcolorbluefuncfontparamsFractalParameterdeepimageImage {
         'This class was created so that we can correctly have an alias pointing to this name. Since it contains dots that can break namespaces
     }
 }
@@ -191,9 +213,12 @@ namespace server {
         - galleryPageHandler(w http.ResponseWriter, r *http.Request) 
         - settingsPageHandler(w http.ResponseWriter, r *http.Request) 
         - staticImageHandler(w http.ResponseWriter, r *http.Request) 
+        - mandelbrotPageHandler(w http.ResponseWriter, r *http.Request) 
+        - complexFractalsPageHandler(w http.ResponseWriter, r *http.Request) 
+        - attractorsFractalsPageHandler(w http.ResponseWriter, r *http.Request) 
         - staticIconHandler(w http.ResponseWriter, r *http.Request) 
         - styleSheetHandler(w http.ResponseWriter, r *http.Request) 
-        - fractalTypeImageHandler(w http.ResponseWriter, r *http.Request) 
+        - fractalImageHandler(w http.ResponseWriter, r *http.Request) 
 
         + Serve() 
 
@@ -215,5 +240,5 @@ namespace server {
 "deepimage.[][]IPixel" #.. "alias of""deepimage.IImage"
 "deepimage.[][]RPixel" #.. "alias of""deepimage.RImage"
 "deepimage.[][]ZPixel" #.. "alias of""deepimage.ZImage"
-"renderer.fontcolorbluefuncfontparamsCplxdeepimageImage" #.. "alias of""renderer.fractalFunction"
+"renderer.fontcolorbluefuncfontparamsFractalParameterdeepimageImage" #.. "alias of""renderer.fractalFunction"
 @enduml
