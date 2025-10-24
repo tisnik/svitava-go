@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"time"
 
 	"github.com/tisnik/svitava-go/configuration"
@@ -83,6 +84,21 @@ func runInServerMode(port uint) {
 	server.Serve()
 }
 
+func listAllFractals() {
+	parameters, _ := params.LoadFractalParameters("data/complex_fractals.toml")
+
+	names := make([]string, len(parameters))
+	i := 0
+	for name := range parameters {
+		names[i] = name
+		i++
+	}
+	slices.Sort(names)
+	for _, name := range names {
+		fmt.Println(name)
+	}
+}
+
 func main() {
 	var width uint
 	var height uint
@@ -92,6 +108,8 @@ func main() {
 	var execute string
 	var port uint
 	var demoMode bool
+	var fractal string
+	var listFractals bool
 
 	configuration, err := configuration.LoadConfiguration(CONFIG_FILE_NAME)
 	if err != nil {
@@ -110,7 +128,13 @@ func main() {
 	flag.BoolVar(&aa, "antialias", false, "enable antialiasing")
 
 	flag.BoolVar(&startTUI, "t", false, "start with text user interface (shorthand)")
-	flag.BoolVar(&startTUI, "tui", false, "start in server mode")
+	flag.BoolVar(&startTUI, "tui", false, "start with text user interface")
+
+	flag.BoolVar(&listFractals, "l", false, "list names of all fractals that can be rendered (shorthand)")
+	flag.BoolVar(&listFractals, "list", false, "list names of all fractals that can be rendered")
+
+	flag.StringVar(&fractal, "f", "", "name of fractal to be rendered (shorthand)")
+	flag.StringVar(&fractal, "fractal", "", "name of fractal to be rendered")
 
 	flag.StringVar(&execute, "e", "", "execute given script with rendering commands (shorthand)")
 	flag.StringVar(&execute, "exec", "", "execute given script with rendering commands")
@@ -134,6 +158,11 @@ func main() {
 
 	if demoMode {
 		runInDemoMode()
+		return
+	}
+
+	if listFractals {
+		listAllFractals()
 		return
 	}
 
